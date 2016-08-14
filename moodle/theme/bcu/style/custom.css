@@ -460,8 +460,8 @@ span.fa-chevron-right.fa {
 
 .breadcrumb li a, .breadcrumb li.lastli span, .breadcrumb li span.spnlink {
     display: inline-block;
-    height: 11px;
-    padding: 0px 0px 0 25px;
+    height: 26px;
+    padding: 9px 8px 0 25px;
     position: relative;
     color: #000;
     text-shadow: none;
