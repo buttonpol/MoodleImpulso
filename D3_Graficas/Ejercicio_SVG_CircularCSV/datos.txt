@@ -1,0 +1,4 @@
+Nombre,Nota
+Leonell,3
+Pol,29
+Nacho,19

@@ -1,0 +1,12 @@
+.bar {
+  fill: steelblue;
+}
+
+.axis path {
+  display: none;
+}
+
+text{
+	fill: "Blue";
+	font-size: 10px;
+}

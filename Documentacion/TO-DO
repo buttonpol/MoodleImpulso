@@ -1,0 +1,1 @@
+Configurar el upload_max_filesize = 20M en php.ini para que no complique la subida de archivos
