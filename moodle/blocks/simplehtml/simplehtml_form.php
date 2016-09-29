@@ -6,6 +6,11 @@
  * Time: 9:58
  */
 
+/**
+ *
+ * simplehtml_form.php is created which defines the class used later to display our form.
+ */
+
 
 require_once("{$CFG->libdir}/formslib.php");
 

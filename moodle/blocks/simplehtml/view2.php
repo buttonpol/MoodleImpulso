@@ -17,9 +17,6 @@
  * */
 global $DB, $OUTPUT, $PAGE, $CFG;
 
-
-
-require_once('view_header.php');
 require_once('app_js.php');
 require_once('../../config.php');
 require_once('simplehtml_form.php');
@@ -54,45 +51,19 @@ $editnode->make_active();
 //Don't forget to include definitions for the new strings that you are creating, into block_simplehtml.php
 
 
-$simplehtml_form = new simplehtml_form();
+$simplehtml = new simplehtml_form();
 echo $OUTPUT->header();
 
-$datos_grafica_circular=print_grafica_circular();
-/*
-echo 'lib.php print_grafica_circular';
-print_object($datos_grafica_circular);
-echo ''; */
-
-$jsonencode_datos_grafica_circular = json_encode($datos_grafica_circular);
-echo 'json_encode print_grafica_circular';
-print_object($jsonencode_datos_grafica_circular);
-echo '';
 
 echo html_writer::start_tag('h2');
 echo 'Gráfica circular para el curso '.$course->fullname;
 echo html_writer::end_tag('h2');
-echo html_writer::start_div('', array('id' => 'grafica_circular')); //aca escribe con javascript la grafica
-echo html_writer::end_div();
-
-
-echo html_writer::start_tag('h2');
-echo 'Gráfica de barras para el curso '.$course->fullname;
-echo html_writer::end_tag('h2');
-echo html_writer::start_div('', array('id' => 'grafica_barras')); //aca escribe con javascript la grafica
-echo html_writer::end_div();
-
-
-
-echo html_writer::start_tag('h2');
-echo 'Gráfica de barras divididas para el curso '.$course->fullname;
-echo html_writer::end_tag('h2');
-echo html_writer::start_div('', array('id' => 'grafica_barras_divididas')); //aca escribe con javascript la grafica
-echo html_writer::end_div();
+echo html_writer::empty_tag('div', array('id' => 'grafica_circular')); //aca escribe con javascript la grafica
 
 
 //imprime el formulario configurado en simplehtml_form.php
-$simplehtml_form->display();
-//print_object($this->config);
+$simplehtml->display();
+//print_object($course);
 
 //print_object() is a useful moodle function which prints out data from mixed data types showing the keys and data for
 // arrays and objects. Now visit the "Add Page" link for the block and submit some form data.
@@ -102,14 +73,22 @@ $simplehtml_form->display();
 
 
 /*
+echo 'lib.php print_grafica_circular';
+$datos_grafica_circular=print_grafica_circular();
+print_object($datos_grafica_circular);
+echo '';
 
 
 //echo 'lib.php print_keyvalue';
 //$datos_keyvalue=print_keyvalue();
 //print_object($datos_keyvalue);
 //echo '';
-*/
-/*
+
+$jsonencode_datos_grafica_circular = json_encode($datos_grafica_circular);
+echo 'json_encode print_grafica_circular';
+print_object($jsonencode_datos_grafica_circular, true);
+echo '';
+
 echo 'json_decode print_grafica_circular';
 print_object(json_decode($jsonencode_datos_grafica_circular, true));
 echo '';

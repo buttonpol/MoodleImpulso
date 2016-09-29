@@ -1,4 +1,5 @@
-svg { 
+/* estilos para grafica circular*/
+svg {
 	border: 1px solid #aaa;
 }
 
@@ -9,4 +10,21 @@ text{
 
 .arc path {
 	stroke: #fff;
+}
+
+
+
+/* estilos para grafica de barras*/
+
+.bar {
+	fill: steelblue;
+}
+
+.axis path {
+	display: none;
+}
+
+text{
+	fill: "Blue";
+	font-size: 10px;
 }

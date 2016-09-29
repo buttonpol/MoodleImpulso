@@ -8,12 +8,12 @@
 		"nombre":"Pol",
 		"dato": "14"
 	},
-	
+
 	{
 		"nombre":"Nacho",
 		"dato": "19"
 	},
-	
+
 	{
 		"nombre":"Valentina",
 		"dato": "23"
