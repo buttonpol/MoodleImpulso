@@ -7,8 +7,11 @@
  */
 
 $string['pluginname'] = 'Seguimiento del aprendizaje';
-$string['simplehtml'] = 'Reportes';
-$string['blockstring'] = 'default value';
-$string['addpage'] = 'default value';
-$string['simplehtml:addinstance'] = 'Add a new simple HTML block';
-$string['simplehtml:myaddinstance'] = 'Add a new simple HTML block to the My Moodle page';
+$string['simplehtml'] = 'Reportes de seguimiento';
+$string['simplehtmlsettings'] = 'Reportes de seguimiento';
+$string['blockstring'] = 'lang/en/...[blockstring]';
+$string['viewreport'] = 'Ver Reportes del curso :addpage';//este se ve en la pagina del curso
+$string['editpage'] = 'Ver Reportes del curso :editpage';//este se ve al entrar en viewpage
+$string['edithtml'] = 'Ver Reportes del curso :editpage';//este se ve al entrar en viewpage
+$string['simplehtml:addinstance'] = 'Agregar bloque de Reporte de seguimiento :addinstance';
+$string['simplehtml:myaddinstance'] = 'Agregar bloque de Reporte de seguimiento :myaddinstance';

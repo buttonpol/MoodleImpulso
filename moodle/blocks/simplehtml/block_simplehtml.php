@@ -50,7 +50,7 @@ class block_simplehtml extends block_base
 
         $url = new moodle_url('/blocks/simplehtml/view.php', array('blockid' => $this->instance->id, 'courseid' => $COURSE->id));
         //$this->content->footer = html_writer::link($url, get_string('addpage', 'block_simplehtml'));
-        $this->content->footer = html_writer::link($url, get_string('addpage', 'block_simplehtml'));
+        $this->content->footer = html_writer::link($url, get_string('viewreport', 'block_simplehtml'));
 
         return $this->content;
     }
