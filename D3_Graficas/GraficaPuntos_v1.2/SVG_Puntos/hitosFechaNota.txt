@@ -1,0 +1,23 @@
+[
+	{
+		"hitoId":1,
+		"hitoNombre":"Hito 1",
+		"hitoFecha":"2016-03-15",
+		"hitoDescripcion":"vacaciones!!!",
+		"x1":110,
+		"y2":50,
+		"x2":110,
+		"y1":300
+	},
+
+	{
+		"hitoId":2,
+		"hitoNombre":"Hito 2",
+		"hitoFecha":"2016-05-20",
+		"hitoDescripcion":"Mas vacaciones!!",
+		"x1":200,
+		"y2":50,
+		"x2":200,
+		"y1":300
+	}
+]

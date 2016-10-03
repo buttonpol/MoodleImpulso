@@ -16,7 +16,7 @@
 require_once('lib.php');
 
 
-echo json_encode(print_grafica_circular());
+echo json_encode(sql_grafica_circular());
 
 
 ?>

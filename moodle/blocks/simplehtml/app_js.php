@@ -1,33 +1,52 @@
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script type="application/javascript">
-        var datos = '[{"nombre":"Alumno 2","nota":"10.00000"},{"nombre":"Alumno 5","nota":"5.00000"}]';
+
+        /*
+        * ejecuta todas las funciones de graficas que esten cargadas en $graph_functions
+        * */
 
         function cargarDatos() {
 
-            //d3.json('rest_call_grafica_circular.php', function (err, data) {
-            d3.json('datos2.txt', function (err, data) {
-                console.log('hola');
-                console.log(datos);
-                    datos = data;
-                    graficarCircular();
-                }
-            );
 
-            //d3.json('rest_call_grafica_circular.php', function (err, data) {
-            d3.json('datosBarras.txt', function (err, data) {
-                    datos = data;
-                    graficarBarras();
-                }
-            );
-
-
-            graficarBarrasDivididas();
-
-
+            var array_of_functions = [
+                <?php echo $graph_functions?>
+            ]
+//            console.log(array_of_functions);
+            for (i = 0; i < array_of_functions.length; i++) {
+                array_of_functions[i]();
+            }
         }
 
-        function graficarCircular() {
+
+
+        /*
+         * inicio codigo para grafica circular
+         * */
+
+        function reporteCircular(){
+
+            <?php
+            $html_to_append =  html_writer::start_tag('h2').'Gráfica circular para el curso '.$course->fullname;
+            $html_to_append.= html_writer::end_tag('h2');
+            $html_to_append .=html_writer::start_div('', array('id' => 'grafica_circular')); //aca escribe con javascript la grafica
+            $html_to_append .= html_writer::end_div();
+
+            ?>
+
+            $('#container_pie_graph').append('<?php echo $html_to_append ?>');
+
+            d3.json('<?php echo $path_pie_report;?>', function (err, datos) {
+
+                    var arr = $.map(datos, function (alumno) {
+                        return alumno;
+                    });
+                    console.log(JSON.stringify(arr));
+                    graficarCircular(arr);
+                }
+            );
+        }
+        function graficarCircular(datos) {
             var width = 300;
             var height = 300;
             var radius = Math.min(width, height) / 2;
@@ -43,8 +62,6 @@
             // ayuda para entender la información que viene del json
             var pie = d3.pie()
                 .value(function (d) {
-                    console.log(d);
-                    console.log('pepe');
                     return d.nota;
                 });
 
@@ -80,7 +97,7 @@
 
             g.append("text")
                 .text(function (d) {
-                    return d.data.nombre + "(" + d.data.dato + ")";
+                    return d.data.nombre + "(" + d.data.nota + ")";
                 })
                 .attr("transform", function (d) {
                     return "translate(" + arc.centroid(d) + "), rotate(" + angle(d) + ")";
@@ -93,7 +110,34 @@
             }
         }
 
-        function graficarBarras(){
+        /*
+         * fin codigo para grafica circular
+         * */
+
+        /*
+         * inicio codigo para grafica de barras
+         * */
+        function reporteBarras(){
+
+
+            <?php
+            $html_to_append =  html_writer::start_tag('h2').'Gráfica de barras para el curso '.$course->fullname;
+            $html_to_append.= html_writer::end_tag('h2');
+            $html_to_append .=html_writer::start_div('', array('id' => 'grafica_barras')); //aca escribe con javascript la grafica
+            $html_to_append .= html_writer::end_div();
+
+            ?>
+
+            $('#container_bar_graph').append('<?php echo $html_to_append ?>');
+            //d3.json('rest_call_grafica_circular.php', function (err, data) {
+            d3.json('<?php echo $path_bar_report ?>', function (err, datos) {
+//                    datos = data;
+                    graficarBarras(datos);
+                }
+            );
+        }
+
+        function graficarBarras(datos){
             var w = 500;
             var h = 300;
             var wl = 20;
@@ -140,8 +184,32 @@
 
         }
 
+        /*
+         * fin codigo para grafica de barras
+         * */
 
-        function graficarBarrasDivididas(){
+
+/*
+* inicio codigo para grafica de barras divididas
+* */
+
+        function reporteBarrasDivididas(){
+
+
+            <?php
+            $html_to_append =  html_writer::start_tag('h2').'Gráfica de barras divididas para el curso '.$course->fullname;
+            $html_to_append.= html_writer::end_tag('h2');
+            $html_to_append .=html_writer::start_div('', array('id' => 'grafica_barras_divididas')); //aca escribe con javascript la grafica
+            $html_to_append .= html_writer::end_div();
+
+            ?>
+
+            $('#container_div_bar_graph').append('<?php echo $html_to_append ?>');
+            var datos;
+            graficarBarrasDivididas(datos);
+        }
+
+        function graficarBarrasDivididas(datos){
             var w = 500;
             var h = 300;
 
@@ -171,7 +239,7 @@
             var stack = d3.stack()
                 .offset(d3.stackOffsetExpand);
 
-            d3.csv("datosBarrasDivididas.txt", type, function(error, data) {
+            d3.csv("<?php echo $path_div_bar_report ?>", type, function(error, data) {
                     if (error) throw error;
 
                     data.sort(function(a, b) { return b[data.columns[1]] / b.total - a[data.columns[1]] / a.total; });
@@ -234,6 +302,12 @@
             d.total = t;
             return d;
         }
+
+
+
+        /*
+         * fin codigo para grafica de barras divididas
+         * */
 
     </script>
 

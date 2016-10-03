@@ -13,5 +13,5 @@
 <html ng-app="AppPrueba">
 <head>
     <meta charset="UTF-8">
-    <title>Gráfica Circular</title>
+    <title>Reportes Liceo Impulso</title>
     <link rel="stylesheet" type="text/css" href="estilo.css">

@@ -17,10 +17,15 @@
  * */
 global $DB, $OUTPUT, $PAGE, $CFG;
 
+/* partes fijas del archivo de salida*/
+$dir = "reportes";
+$output_file_type = ".txt";
 
+/* funciones a ejecutar en el js de graficas*/
+
+$graph_functions = '';
 
 require_once('view_header.php');
-require_once('app_js.php');
 require_once('../../config.php');
 require_once('simplehtml_form.php');
 //TODO: averiguar por qué acá funciona $CFG->dirroot y si lo pongo en las anteriores líneas no
@@ -50,119 +55,157 @@ $settingsnode = $PAGE->settingsnav->add(get_string('simplehtmlsettings', 'block_
 $editurl = new moodle_url('/blocks/simplehtml/view.php', array('id' => $id, 'courseid' => $courseid, 'blockid' => $blockid));
 $editnode = $settingsnode->add(get_string('editpage', 'block_simplehtml'), $editurl);
 $editnode->make_active();
+
+
 // no se que significa esto, pero parece importante
 //Don't forget to include definitions for the new strings that you are creating, into block_simplehtml.php
 
-
-$simplehtml_form = new simplehtml_form();
+//$simplehtml_form = new simplehtml_form();
 echo $OUTPUT->header();
 
-$datos_grafica_circular=print_grafica_circular();
+
 /*
-echo 'lib.php print_grafica_circular';
-print_object($datos_grafica_circular);
-echo ''; */
+ * aca empieza la parte de las graficas
+ * */
 
-$jsonencode_datos_grafica_circular = json_encode($datos_grafica_circular);
-echo 'json_encode print_grafica_circular';
-print_object($jsonencode_datos_grafica_circular);
-echo '';
 
-echo html_writer::start_tag('h2');
-echo 'Gráfica circular para el curso '.$course->fullname;
-echo html_writer::end_tag('h2');
-echo html_writer::start_div('', array('id' => 'grafica_circular')); //aca escribe con javascript la grafica
+/*genera la fecha que va a componer el archivo de salida y el nombre por el tipo de reporte*/
+$report_type = "reporteCircular";
+$today = (new \DateTime())->format('Ymd');
+$ending = 'curso_'.$courseid.'_'.$today.$output_file_type;
+
+/*ruta total del reporte*/
+$path_pie_report = $dir . "/" . $report_type.'_'.$ending;
+
+
+
+
+/*
+ *
+ * genera el reporte de torta
+ *
+ * */
+$data_graph=json_encode(sql_grafica_circular());
+
+//print_object(sql_grafica_circular());
+/*guarda el reporte en el archivo*/
+file_put_contents($path_pie_report, $data_graph);
+
+
+$graph_functions .= $report_type;
+echo html_writer::start_div('', array('id' => 'container_pie_graph'));
 echo html_writer::end_div();
 
 
-echo html_writer::start_tag('h2');
-echo 'Gráfica de barras para el curso '.$course->fullname;
-echo html_writer::end_tag('h2');
-echo html_writer::start_div('', array('id' => 'grafica_barras')); //aca escribe con javascript la grafica
+
+/*
+ *
+ * genera el reporte de barras
+ *
+ * */
+$data_graph=json_encode(sql_grafica_barras());
+
+
+$report_type = "reporteBarras";
+/*ruta total del reporte*/
+$path_bar_report = $dir . "/" . $report_type.'_'.$ending;
+
+/*guarda el reporte en el archivo*/
+file_put_contents($path_bar_report, $data_graph);
+
+echo html_writer::start_div('', array('id' => 'container_bar_graph'));
 echo html_writer::end_div();
+$graph_functions .= ','.$report_type;
 
 
 
-echo html_writer::start_tag('h2');
-echo 'Gráfica de barras divididas para el curso '.$course->fullname;
-echo html_writer::end_tag('h2');
-echo html_writer::start_div('', array('id' => 'grafica_barras_divididas')); //aca escribe con javascript la grafica
+
+/*
+ *
+ * genera el reporte de barras divididas
+ *
+ * */
+$data_graph=sql_grafica_barras_divididas();
+
+
+$report_type = "reporteBarrasDivididas";
+/*ruta total del reporte*/
+$path_div_bar_report = $dir . "/" . $report_type.'_'.$ending;
+
+/*guarda el reporte en el archivo*/
+file_put_contents($path_div_bar_report, $data_graph);
+
+echo html_writer::start_div('', array('id' => 'container_div_bar_graph'));
 echo html_writer::end_div();
+$graph_functions .= ','.$report_type;
 
 
-//imprime el formulario configurado en simplehtml_form.php
-$simplehtml_form->display();
+$salida = sql_grafica_circular();
+
+print_object($salida);
+$result= json_encode($salida);
+echo result;
+
+$expected = '[{"nombre":"Alumno 2","nota":"10.0"},{"nombre":"Alumno 5","nota":"5.0"}]';
+echo $expected ;
+
+print_object(json_encode(array_values($salida)));///creo que esto arregla todo
+
+if ($expected== $result){
+    echo "si";
+}else {
+    echo "no";
+}
+;
+
+
+/*
+ *
+ * genera el reporte de docentes
+ *
+ * */
+
+
+/*
+$data_graph=sql_docentes_curso($courseid);
+*/
+
+$report_type = "reporteDocentes";
+/*ruta total del reporte*/
+/*
+$path_teachers_report = $dir . "/" . $report_type.'_'.$ending;*/
+
+/*guarda el reporte en el archivo*/
+/*
+file_put_contents($path_teachers_report, $data_graph);
+
+echo html_writer::start_div('', array('id' => 'container_div_teachers'));
+echo html_writer::end_div();
+$graph_functions .= ','.$report_type;
+*/
+
+
+
+/*
+ * aca termina la parte de las graficas
+ * */
+
+
+/*
+ * imprime el formulario configurado en simplehtml_form.php
+ *
+ * */
+
+//$simplehtml_form->display();
 //print_object($this->config);
 
-//print_object() is a useful moodle function which prints out data from mixed data types showing the keys and data for
-// arrays and objects. Now visit the "Add Page" link for the block and submit some form data.
-
-
-// prueba
 
 
 /*
-
-
-//echo 'lib.php print_keyvalue';
-//$datos_keyvalue=print_keyvalue();
-//print_object($datos_keyvalue);
-//echo '';
-*/
-/*
-echo 'json_decode print_grafica_circular';
-print_object(json_decode($jsonencode_datos_grafica_circular, true));
-echo '';
-
-
-echo 'resultado ';
-print_object($resultados);
-$r2 = json_decode(print_object(json_encode($resultados)), TRUE);
-print_object($r2);
-print_object(json_encode($resultados));
-print_object(json_encode($r2));
-
-echo 'array ';
-$array = array(array('nombre' => 'Pol', 'dato' => '10'), array('nombre' => 'Juan', 'dato' => '10'));
-print_object($array);
-print_object(json_encode($array));
-
-$json = '[
-	{
-		"nombre":"Leonell",
-		"dato": "12"
-	},
-
-	{
-		"nombre":"Pol",
-		"dato": "14"
-	},
-
-	{
-		"nombre":"Nacho",
-		"dato": "19"
-	},
-
-	{
-		"nombre":"Valentina",
-		"dato": "23"
-	},
-
-	{
-		"nombre":"Sonia",
-		"dato": "28"
-	}
-]';
-
-echo 'json decode';
-print_object(json_decode($json));
-echo 'json encode 2';
-print_object(json_encode(json_decode($json)));
-*/
-
-// fin prueba
-
-
+ * los javascript para mostrar las gráficas
+ * por ultimo para que esten cargadas todas las variables que precisa el php importado
+ * */
+require_once('app_js.php');
 echo $OUTPUT->footer();
 
 ?>

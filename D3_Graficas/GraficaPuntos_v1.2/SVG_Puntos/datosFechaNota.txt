@@ -1,0 +1,39 @@
+[
+	{
+		"alumnoId":1,
+		"alumnoNombre":"Leonell",
+		"pruebaFecha":"2016-03-25",
+		"pruebaNota":5
+	},
+
+	{
+		"alumnoId":2,
+		"alumnoNombre":"Pol",
+		"pruebaFecha":"2016-03-25",
+		"pruebaNota":4
+	},
+	{
+		"alumnoId":3,
+		"alumnoNombre":"Nacho",
+		"pruebaFecha":"2016-03-25",
+		"pruebaNota":7
+	},
+	{
+		"alumnoId":1,
+		"alumnoNombre":"Leonell",
+		"pruebaFecha":"2016-04-20",
+		"pruebaNota":2
+	},
+	{
+		"alumnoId":2,
+		"alumnoNombre":"Pol",
+		"pruebaFecha":"2016-04-20",
+		"pruebaNota":6
+	},
+	{
+		"alumnoId":3,
+		"alumnoNombre":"Nacho",
+		"pruebaFecha":"2016-04-20",
+		"pruebaNota":4
+	}
+]
