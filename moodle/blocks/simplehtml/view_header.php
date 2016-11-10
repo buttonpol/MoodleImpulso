@@ -14,4 +14,4 @@
 <head>
     <meta charset="UTF-8">
     <title>Reportes Liceo Impulso</title>
-    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <link rel="stylesheet" type="text/css" href="styles/estilo.css">

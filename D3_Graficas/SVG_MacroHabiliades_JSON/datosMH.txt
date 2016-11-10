@@ -1,147 +1,147 @@
 [
 	{
-		"mHId":1,
-		"mHNombre":"Comprension Lectora",
+		"mhid":1,
+		"mhnombre":"Comprension Lectora",
 		"notas":
 			[
 				{
-					"notaLetra":"D",
+					"notaletra":"D",
 					"alumnos":
 						[
-							{"alumnoId":1, "alumnoNombre":"a1"},
-							{"alumnoId":2, "alumnoNombre":"a2"}
+							{"alumnoid":1, "alumnonombre":"a1"},
+							{"alumnoid":2, "alumnonombre":"a2"}
 						]
 				},
 				{
-					"notaLetra":"R",
+					"notaletra":"R",
 					"alumnos":
 						[
-							{"alumnoId":3, "alumnoNombre":"a3"},
-							{"alumnoId":4, "alumnoNombre":"a4"},
-							{"alumnoId":5, "alumnoNombre":"a5"},
-							{"alumnoId":6, "alumnoNombre":"a6"}
+							{"alumnoid":3, "alumnonombre":"a3"},
+							{"alumnoid":4, "alumnonombre":"a4"},
+							{"alumnoid":5, "alumnonombre":"a5"},
+							{"alumnoid":6, "alumnonombre":"a6"}
 						]
 				},
 				{
-					"notaLetra":"B",
+					"notaletra":"B",
 					"alumnos":
 						[
-							{"alumnoId":7, "alumnoNombre":"a7"},
-							{"alumnoId":8, "alumnoNombre":"a8"},
-							{"alumnoId":9, "alumnoNombre":"a9"},
-							{"alumnoId":10, "alumnoNombre":"a10"},
-							{"alumnoId":11, "alumnoNombre":"a11"},
-							{"alumnoId":12, "alumnoNombre":"a12"},
-							{"alumnoId":13, "alumnoNombre":"a13"},
-							{"alumnoId":14, "alumnoNombre":"a14"}
+							{"alumnoid":7, "alumnonombre":"a7"},
+							{"alumnoid":8, "alumnonombre":"a8"},
+							{"alumnoid":9, "alumnonombre":"a9"},
+							{"alumnoid":10, "alumnonombre":"a10"},
+							{"alumnoid":11, "alumnonombre":"a11"},
+							{"alumnoid":12, "alumnonombre":"a12"},
+							{"alumnoid":13, "alumnonombre":"a13"},
+							{"alumnoid":14, "alumnonombre":"a14"}
 						]
 				},
 				{
-					"notaLetra":"S",
+					"notaletra":"S",
 					"alumnos":
 						[
-							{"alumnoId":15, "alumnoNombre":"a15"},
-							{"alumnoId":16, "alumnoNombre":"a16"},
-							{"alumnoId":17, "alumnoNombre":"a17"},
-							{"alumnoId":18, "alumnoNombre":"a18"}
+							{"alumnoid":15, "alumnonombre":"a15"},
+							{"alumnoid":16, "alumnonombre":"a16"},
+							{"alumnoid":17, "alumnonombre":"a17"},
+							{"alumnoid":18, "alumnonombre":"a18"}
 						]
 				}
 			]
 	},
 	{
-		"mHId":2,
-		"mHNombre":"Compresion Auditiva",
+		"mhid":2,
+		"mhnombre":"Compresion Auditiva",
 		"notas":
 			[
 				{
-					"notaLetra":"D",
+					"notaletra":"D",
 					"alumnos":
 						[
-							{"alumnoId":1, "alumnoNombre":"a1"},
-							{"alumnoId":2, "alumnoNombre":"a2"},
-							{"alumnoId":3, "alumnoNombre":"a3"}
+							{"alumnoid":1, "alumnonombre":"a1"},
+							{"alumnoid":2, "alumnonombre":"a2"},
+							{"alumnoid":3, "alumnonombre":"a3"}
 						]
 				},
 				{
-					"notaLetra":"R",
+					"notaletra":"R",
 					"alumnos":
 						[
-							{"alumnoId":4, "alumnoNombre":"a4"},
-							{"alumnoId":5, "alumnoNombre":"a5"}
+							{"alumnoid":4, "alumnonombre":"a4"},
+							{"alumnoid":5, "alumnonombre":"a5"}
 						]
 				},
 				{
-					"notaLetra":"B",
+					"notaletra":"B",
 					"alumnos":
 						[
-							{"alumnoId":6, "alumnoNombre":"a6"},
-							{"alumnoId":7, "alumnoNombre":"a7"},
-							{"alumnoId":8, "alumnoNombre":"a8"},
-							{"alumnoId":9, "alumnoNombre":"a9"},
-							{"alumnoId":10, "alumnoNombre":"a10"},
-							{"alumnoId":11, "alumnoNombre":"a11"},
-							{"alumnoId":12, "alumnoNombre":"a12"},
-							{"alumnoId":13, "alumnoNombre":"a13"},
-							{"alumnoId":14, "alumnoNombre":"a14"},
-							{"alumnoId":15, "alumnoNombre":"a15"}
+							{"alumnoid":6, "alumnonombre":"a6"},
+							{"alumnoid":7, "alumnonombre":"a7"},
+							{"alumnoid":8, "alumnonombre":"a8"},
+							{"alumnoid":9, "alumnonombre":"a9"},
+							{"alumnoid":10, "alumnonombre":"a10"},
+							{"alumnoid":11, "alumnonombre":"a11"},
+							{"alumnoid":12, "alumnonombre":"a12"},
+							{"alumnoid":13, "alumnonombre":"a13"},
+							{"alumnoid":14, "alumnonombre":"a14"},
+							{"alumnoid":15, "alumnonombre":"a15"}
 						]
 				},
 				{
-					"notaLetra":"S",
+					"notaletra":"S",
 					"alumnos":
 						[
-							{"alumnoId":16, "alumnoNombre":"a16"},
-							{"alumnoId":17, "alumnoNombre":"a17"},
-							{"alumnoId":18, "alumnoNombre":"a18"}	
+							{"alumnoid":16, "alumnonombre":"a16"},
+							{"alumnoid":17, "alumnonombre":"a17"},
+							{"alumnoid":18, "alumnonombre":"a18"}	
 						]
 				}
 			]
 	},
 	{
-		"mHId":3,
-		"mHNombre":"Produccion Escrita",
+		"mhid":3,
+		"mhnombre":"Produccion Escrita",
 		"notas":
 			[
 				{
-					"notaLetra":"D",
+					"notaletra":"D",
 					"alumnos":
 						[
-							{"alumnoId":1, "alumnoNombre":"a1"}
+							{"alumnoid":1, "alumnonombre":"a1"}
 						]
 				},
 				{
-					"notaLetra":"R",
+					"notaletra":"R",
 					"alumnos":
 						[
-							{"alumnoId":2, "alumnoNombre":"a2"},
-							{"alumnoId":3, "alumnoNombre":"a3"}
+							{"alumnoid":2, "alumnonombre":"a2"},
+							{"alumnoid":3, "alumnonombre":"a3"}
 						]
 				},
 				{
-					"notaLetra":"B",
+					"notaletra":"B",
 					"alumnos":
 						[
-							{"alumnoId":4, "alumnoNombre":"a4"},
-							{"alumnoId":5, "alumnoNombre":"a5"},
-							{"alumnoId":6, "alumnoNombre":"a6"},
-							{"alumnoId":7, "alumnoNombre":"a7"},
-							{"alumnoId":8, "alumnoNombre":"a8"},
-							{"alumnoId":9, "alumnoNombre":"a9"},
-							{"alumnoId":10, "alumnoNombre":"a10"},
-							{"alumnoId":11, "alumnoNombre":"a11"},
-							{"alumnoId":12, "alumnoNombre":"a12"},
-							{"alumnoId":13, "alumnoNombre":"a13"},
-							{"alumnoId":14, "alumnoNombre":"a14"},
-							{"alumnoId":15, "alumnoNombre":"a15"},
-							{"alumnoId":16, "alumnoNombre":"a16"},
-							{"alumnoId":17, "alumnoNombre":"a17"}
+							{"alumnoid":4, "alumnonombre":"a4"},
+							{"alumnoid":5, "alumnonombre":"a5"},
+							{"alumnoid":6, "alumnonombre":"a6"},
+							{"alumnoid":7, "alumnonombre":"a7"},
+							{"alumnoid":8, "alumnonombre":"a8"},
+							{"alumnoid":9, "alumnonombre":"a9"},
+							{"alumnoid":10, "alumnonombre":"a10"},
+							{"alumnoid":11, "alumnonombre":"a11"},
+							{"alumnoid":12, "alumnonombre":"a12"},
+							{"alumnoid":13, "alumnonombre":"a13"},
+							{"alumnoid":14, "alumnonombre":"a14"},
+							{"alumnoid":15, "alumnonombre":"a15"},
+							{"alumnoid":16, "alumnonombre":"a16"},
+							{"alumnoid":17, "alumnonombre":"a17"}
 						]
 				},
 				{
-					"notaLetra":"S",
+					"notaletra":"S",
 					"alumnos":
 						[
-							{"alumnoId":18, "alumnoNombre":"a18"}
+							{"alumnoid":18, "alumnonombre":"a18"}
 						]
 				}
 			]

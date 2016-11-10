@@ -1,0 +1,68 @@
+/* estilos para grafica circular*/
+svg {
+	border: 1px solid #aaa;
+}
+
+text{
+	font-size: 10px;
+	text-anchor: middle;
+}
+
+.arc path {
+	stroke: #fff;
+}
+
+
+
+/* estilos para grafica de barras*/
+
+.bar {
+	fill: steelblue;
+}
+
+.axis path {
+	display: none;
+}
+
+text{
+	fill: "Blue";
+	font-size: 10px;
+}
+svg {
+	/*border: 1px solid #aaa;*/
+}
+
+
+/*grafica de puntos*/
+
+
+/*rect{*/
+	/*fill: SteelBlue;*/
+/*}*/
+
+text {
+	text-anchor: middle;
+}
+
+.axis path,
+.axis line{
+	fill: none;
+	stroke: black;
+}
+
+.line{
+	fill: none;
+	stroke: blue;
+	stroke-width: 2px;
+}
+
+.tick text{
+	font-size: 12px;
+}
+
+.tick line{
+	opacity: 0.2;
+}
+#tooltiptext{
+	fill: rgb(100, 100, 100);
+}

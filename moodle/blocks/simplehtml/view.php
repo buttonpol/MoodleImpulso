@@ -70,14 +70,12 @@ echo $OUTPUT->header();
 
 
 /*genera la fecha que va a componer el archivo de salida y el nombre por el tipo de reporte*/
-$report_type = "reporteCircular";
 $today = (new \DateTime())->format('Ymd');
 $ending = 'curso_'.$courseid.'_'.$today.$output_file_type;
 
-/*ruta total del reporte*/
-$path_pie_report = $dir . "/" . $report_type.'_'.$ending;
 
-
+//inicio del acordion de graficas
+echo html_writer::start_div('', array('id' => 'accordion'));
 
 
 /*
@@ -85,6 +83,11 @@ $path_pie_report = $dir . "/" . $report_type.'_'.$ending;
  * genera el reporte de torta
  *
  * */
+
+$report_type = "reporteCircular";
+/*ruta total del reporte*/
+$path_pie_report = $dir . "/" . $report_type.'_'.$ending;
+//$data_graph=json_encode(sql_grafica_circular());
 $data_graph=json_encode(sql_grafica_circular());
 
 //print_object(sql_grafica_circular());
@@ -95,6 +98,7 @@ file_put_contents($path_pie_report, $data_graph);
 $graph_functions .= $report_type;
 echo html_writer::start_div('', array('id' => 'container_pie_graph'));
 echo html_writer::end_div();
+
 
 
 
@@ -115,7 +119,7 @@ file_put_contents($path_bar_report, $data_graph);
 
 echo html_writer::start_div('', array('id' => 'container_bar_graph'));
 echo html_writer::end_div();
-$graph_functions .= ','.$report_type;
+//$graph_functions .= ','.$report_type;
 
 
 
@@ -140,24 +144,59 @@ echo html_writer::end_div();
 $graph_functions .= ','.$report_type;
 
 
-$salida = sql_grafica_circular();
 
-print_object($salida);
-$result= json_encode($salida);
-echo result;
+/*
+ *
+ * genera el reporte de promedios de pruebas de alumno
+ *
+ * */
 
-$expected = '[{"nombre":"Alumno 2","nota":"10.0"},{"nombre":"Alumno 5","nota":"5.0"}]';
-echo $expected ;
+/*
+ *
+ * primero genera el reporte con hitos
+ *
+ * */
+//primero genero los hitos
+$data_graph=json_encode(sql_get_milestones($courseid));
 
-print_object(json_encode(array_values($salida)));///creo que esto arregla todo
+$report_type = "reporteHitos";
+/*ruta total del reporte*/
+$path_milestone_report = $dir . "/" . $report_type.'_'.$ending;
 
-if ($expected== $result){
-    echo "si";
-}else {
-    echo "no";
-}
-;
+/*guarda el reporte en el archivo*/
+file_put_contents($path_milestone_report, $data_graph); //
 
+
+
+$student_id = 5;//esto hay que configurarlo dinamico
+
+
+$data_graph=json_encode(sql_get_student_tests());
+//print_object($data_graph);
+
+//$data_graph=json_encode(sql_get_student_average($student_id));
+
+$report_type = "reportePuntosHitos";
+/*ruta total del reporte*/
+$path_student_tests_report = $dir . "/" . $report_type.$ending; //aca le pongo el id del alumno para que no se pise con otra cosa
+//$path_student_average_report = $dir . "/" . 'datosFechaNota2.txt'; //aca le pongo el id del alumno para que no se pise con otra cosa
+
+/*guarda el reporte en el archivo*/
+file_put_contents($path_student_tests_report, $data_graph);
+
+echo html_writer::start_div('', array('id' => 'container_student_tests_graph'));
+echo html_writer::end_div();
+
+//habilitar con el reporte de alumnos
+$graph_functions .= ','.$report_type;
+
+////se puede borrar
+//echo "promedio de alumnos";
+//print_object($data_graph);
+////fin se puede borrar
+
+
+echo html_writer::end_div();
 
 /*
  *
@@ -166,23 +205,38 @@ if ($expected== $result){
  * */
 
 
-/*
-$data_graph=sql_docentes_curso($courseid);
-*/
 
-$report_type = "reporteDocentes";
-/*ruta total del reporte*/
-/*
-$path_teachers_report = $dir . "/" . $report_type.'_'.$ending;*/
 
-/*guarda el reporte en el archivo*/
-/*
-file_put_contents($path_teachers_report, $data_graph);
+//$data_graph=sql_get_docentes_curso($courseid);
+//
+//$report_type = "reporteDocentes";
+///*ruta total del reporte*/
+//
+//$path_teachers_report = $dir . "/" . $report_type.'_'.$ending;
+//
+///*guarda el reporte en el archivo*/
+//
+//file_put_contents($path_teachers_report, $data_graph);
+//
+//echo html_writer::start_div('', array('id' => 'container_div_teachers'));
+//echo html_writer::end_div();
+////$graph_functions .= ','.$report_type;
+//
+////habilitar con el reporte de docentes
+////$graph_functions .= ','.$report_type;
+//
+//
+//
+////se puede borrar
+//echo "docentes del curso";
+//print_object($data_graph);
+////fin se puede borrar
 
-echo html_writer::start_div('', array('id' => 'container_div_teachers'));
-echo html_writer::end_div();
-$graph_functions .= ','.$report_type;
-*/
+echo 'goals jsonencode';
+;
+print_object(json_encode(sql_get_goals()));
+echo 'goals';
+print_object(sql_get_goals());
 
 
 
@@ -205,7 +259,7 @@ $graph_functions .= ','.$report_type;
  * los javascript para mostrar las gráficas
  * por ultimo para que esten cargadas todas las variables que precisa el php importado
  * */
-require_once('app_js.php');
+require_once('scripts/app_js.php');
 echo $OUTPUT->footer();
 
 ?>
