@@ -1,0 +1,43 @@
+svg { 
+	border: 1px solid #aaa;
+}
+
+rect{
+	fill: SteelBlue;
+}
+
+text {
+	text-anchor: middle;
+}
+
+.view {
+  opacity: 0.5;
+}
+
+.click {
+  opacity: 1;
+}
+
+.hidden {
+  display: none;
+}
+
+.axis path,
+  .axis line{
+    fill: none;
+    stroke: black;
+  }
+
+  .line{
+    fill: none;
+    stroke: blue;
+    stroke-width: 2px;
+  }
+
+  .tick text{
+    font-size: 12px;
+  }
+
+  .tick line{
+    opacity: 0.2;
+  }

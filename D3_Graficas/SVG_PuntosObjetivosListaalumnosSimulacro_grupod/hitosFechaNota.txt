@@ -1,0 +1,14 @@
+[
+	{
+		"hitoid":1,
+		"hitonombre":"Hito 1",
+		"hitofecha":"2016-03-30",
+		"hitodescripcion":"vacaciones!!!"
+	},
+	{
+		"hitoid":2,
+		"hitonombre":"Hito 2",
+		"hitofecha":"2016-04-15",
+		"hitodescripcion":"Mas vacaciones!!"
+	}
+]
