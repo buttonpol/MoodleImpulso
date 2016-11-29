@@ -1,3 +1,38 @@
+<script type="text/css">
+
+
+    /* estilos para grafica de barras*/
+
+    #container_div_bar_graph .bar {
+        fill: steelblue;
+    }
+
+    #container_div_bar_graph text{
+        fill: "Blue";
+    }
+
+    #container_div_bar_graph .axis path,
+    #container_div_bar_graph .axis line{
+        fill: none;
+        stroke: black;
+    }
+
+    #container_div_bar_graph .line{
+        fill: none;
+        stroke: blue;
+        stroke-width: 2px;
+    }
+
+    #container_div_bar_graph .tick text{
+        font-size: 12px;
+    }
+
+    #container_div_bar_graph .tick line{
+        opacity: 0.1;
+    }
+
+</script>
+
 
 
     <script type="application/javascript">
@@ -17,104 +52,296 @@
 
             ?>
 
+            var datosMH;
+            var svgW = 700;
+            var svgH = 600;
+
+            var paddingX = 100;
+            var paddingY = 100;
+
+            var valorIniEjeX;
+            var valorFinEjeX;
+            var valorIniEjeY;
+            var valorFinEjeY;
+
+            var valorMinEjeX;
+            var valorMaxEjeX;
+            var valorMinEjeY;
+            var valorMaxEjeY;
+
+            var tamanoEjeX;
+            var tamanoEjeY;
+
+            var porcentajeAcumulado = 0;
+
+            var rectaWidth = 70;
+
+            var barText;
+
+            var primeranotaletra;
+            var cantidadNotas = -1;
+
+            var opacityRectaOff = 0.5;
+            var opacityRectaOn = 1;
+            var opacityTextoOff = 0.3;
+            var opacityTextoOn = 1;
+
+            var leyendaX = 0;
+
+
+
             $('#container_div_bar_graph').append('<?php echo $html_to_append ?>');
             var datos;
-            graficarBarrasDivididas(datos);
+            cargarDatosMacroHabilidades(datos);
         }
 
-        function graficarBarrasDivididas(datos){
-            var w = 500;
-            var h = 300;
+        function cargarDatosMacroHabilidades(){
+            d3.json('datosMH.txt', function(err, data){
+                datosMH = data;
 
-            var svg = d3.select("#grafica_barras_divididas")
-                .append("svg")
-                .attr("width", w)
-                .attr("height", h);
+                valorIniEjeX = paddingX;
+                valorFinEjeX = svgW - paddingX;
+                valorIniEjeY = svgH - paddingY;
+                valorFinEjeY = paddingY;
 
-            var margin = {top: 20, right: 60, bottom: 30, left: 40}
-            //width = +svg.attr("width") - margin.left - margin.right,
-            //height = +svg.attr("height") - margin.top - margin.bottom,
-            //width = +svg.attr("width") - margin.left - margin.right,
-            //height = +svg.attr("height") - margin.top - margin.bottom,
-            var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                valorMinEjeX = 0;
+                valorMaxEjeX = d3.sum(datosMH, function(d){ return 1;}); //cantidad de macrohabilidades
 
-            var x = d3.scaleBand()
-                .rangeRound([0, w])
-                .padding(0.1)
-                .align(0.1);
+                valorMinEjeY = 0;
+                valorMaxEjeY = d3.sum(datosMH[0].notas, function(d){ return d.alumnos.length;}); //cantidad total de alumnos
 
-            var y = d3.scaleLinear()
-                .rangeRound([h, 0]);
+                tamanoEjeX = valorFinEjeX - valorIniEjeX;
+                tamanoEjeY = valorIniEjeY - valorFinEjeY;
 
-            var z = d3.scaleOrdinal()
-                .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+                primeranotaletra = datosMH[0].notas[0].notaletra;
 
-            var stack = d3.stack()
-                .offset(d3.stackOffsetExpand);
-
-            d3.csv("<?php echo $path_div_bar_report ?>", type, function(error, data) {
-                    if (error) throw error;
-
-                    data.sort(function(a, b) { return b[data.columns[1]] / b.total - a[data.columns[1]] / a.total; });
-
-                    x.domain(data.map(function(d) { return d.State; }));
-                    z.domain(data.columns.slice(1));
-
-                    /*
-                     Para cada columna (a partid de la 1 (que en realidad es la segunda)) del archivo, genera una clase serie con un color
-                     */
-                    var serie = g.selectAll(".serie")
-                        .data(stack.keys(data.columns.slice(1))(data))
-                        .enter()
-                        .append("g")
-                        .attr("class", "serie")
-                        .attr("fill", function(d) { return z(d.key); });
+                graficarMacroHabilidades();
+            });
+        }
 
 
-                    /*
+function graficarMacroHabilidades(){
+    var svg =      d3.select("grafica_barras_divididas")
+            .append("div")
+            .attr("id", "divMacroHabilidades")
+            .append("svg")
+            .attr("id", "svgMacroHabilidades")
+            .attr("height", svgH)
+            .attr("width", svgW)
+        ;
 
-                     */
-                    serie.selectAll("rect")
-                        .data(function(d) { return d; })
-                        .enter().append("rect")
-                        .attr("x", function(d) { return x(d.data.State); })
-                        .attr("y", function(d) { return y(d[1]); })
-                        .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-                        .attr("width", x.bandwidth());
+    var xScale =   d3.scaleLinear()
+            .domain([valorMinEjeX, valorMaxEjeX])
+            .range ([valorIniEjeX, valorFinEjeX])
+        ;
 
-                    g.append("g")
-                        .attr("class", "axis axis--x")
-                        .attr("transform", "translate(0," + h + ")")
-                        .call(d3.axisBottom(x));
+    var yScale =   d3.scaleLinear()
+            .domain([valorMinEjeY, valorMaxEjeY])
+            .range ([valorIniEjeY, valorFinEjeY])
+        ;
 
-                    g.append("g")
-                        .attr("class", "axis axis--y")
-                        .call(d3.axisLeft(y).ticks(10, "%"));
+    var xAxis =    d3.axisBottom()
+            .scale(xScale)
+            .ticks(valorMaxEjeX)
+            .tickSizeInner(-tamanoEjeY)
+            .tickPadding(10)
+            .tickFormat(function(d) { if (d < valorMaxEjeX) {return datosMH[d].mhnombre}; })
 
-                    var legend = serie.append("g")
-                        .attr("class", "legend")
-                        .attr("transform", function(d) { var d = d[d.length - 1]; return "translate(" + (x(d.data.State) + x.bandwidth()) + "," + ((y(d[0]) + y(d[1])) / 2) + ")"; });
+        ;
 
-                    legend.append("line")
-                        .attr("x1", -6)
-                        .attr("x2", 6)
-                        .attr("stroke", "#000");
+    var yAxis =    d3.axisLeft()
+            .scale(yScale)
+            .tickSizeInner(-tamanoEjeX)
+            .ticks(valorMaxEjeY)
+        ;
 
-                    legend.append("text")
-                        .attr("x", 9)
-                        .attr("dy", "0.35em")
-                        .attr("fill", "#000")
-                        .style("font", "10px sans-serif")
-                        .text(function(d) { return d.key; });
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("id", "x_axis")
+        .attr("transform", "translate(0," + valorIniEjeY + ")")
+        .call(xAxis)
+        .selectAll("text")
+        .attr("x", function(d) { if (d < valorMaxEjeX) {return 85}; })
+        .style("text-anchor", "middle");
+    ;
+
+    svg.append("g")
+        .attr("class", "axis")
+        .attr("id", "y_axis")
+        .attr("transform", "translate(" + paddingX + ",0)")
+        .call(yAxis)
+    ;
+
+    var colores =  d3.scaleOrdinal()
+            .range(["red", "orange", "skyblue", "green", "blue", "pink", "black"])
+        ;
+
+    var serie =   svg.selectAll("serie")
+            .data(datosMH)
+            .enter()
+            .append("g")
+            .attr("class", "serie")
+            .attr("id", "serie")
+        ;
+
+    var bar =  serie.selectAll("g")
+            .data(function(d) { return d.notas; })
+            .enter()
+            .append("g")
+            .attr("id", function (d) {return ("grupoSerie_" + d.notaletra);})
+        ;
+
+    var barRect = bar.append("rect")
+            .attr("id","barRect")
+            .attr("x", function(d) {
+                cantidadNotas = d.notaletra ==  primeranotaletra? (cantidadNotas + 1) : cantidadNotas;
+                return (50 + xScale(cantidadNotas));
+            })
+            .attr("y",       function(d) { return calcularPosicionY(d.alumnos.length, d.notaletra); })
+            .attr("height",  function(d) { return calcularHeight(d.alumnos.length); })
+            .attr("width",   rectaWidth)
+            .attr("fill",    function(d) { return colores(d.notaletra); })
+            .attr("opacity", opacityRectaOff)
+            .on("mouseover", barRect_MouseOver)
+            .on("mouseout",  barRect_MouseOut)
+        ;
+
+    var grupoTextoNota = bar.append("g")
+            .attr("id", "grupoTextoNota")
+        ;
+
+    barText = grupoTextoNota
+        .selectAll("text")
+        .data(function (d) {return d.alumnos;})
+        .enter()
+        .append("text")
+        .attr("id",function(d) {return "barText_" + d.alumnoid;})
+        .attr("x", svgW - paddingX + 10)
+        .attr("y", function(d) {return paddingY + d.alumnoid * 22;})
+        .attr("font-weight", "")
+        .attr("opacity", opacityTextoOff)
+        .text(function(d) { return d.alumnonombre; })
+        .on("mouseover", function(d) {barText_MouseOver(d.alumnoid);})
+        .on("mouseout",  function(d) {barText_MouseOut(d.alumnoid);})
+    ;
+
+    var notaText = bar.append("text")
+        //.attr("x", function(d) {console.log(xScale(d.notaletra));})
+        //.attr("y", function(d) {return xScale(d.notaletra);})
+            .attr("text", function (d) {return d.notaletra;})
+        ;
+
+    var leyendaGroup = svg
+            .append("g")
+            .attr("id","leyendaGroup")
+        ;
+
+    var leyendaRect = leyendaGroup
+            .selectAll("#leyendaGroup")
+            .data(datosMH[0].notas)
+            .enter()
+            .append("rect")
+            //.attr("id", function (d) {console.log(d);})
+            .attr("x",      function(d) { return LeyendaCalcularX(d.notaletra);})
+            .attr("y",      svgH - 40)
+            .attr("height", 120)
+            .attr("width",  50)
+            .attr("opacity", opacityRectaOff)
+            .attr("fill",    function(d) { console.log(d); return colores(d.notaletra); })
+        ;
+
+    var leyendaText = leyendaGroup
+            .selectAll("text")
+            .data(datosMH[0].notas)
+            .enter()
+            .append("text")
+            //.attr("id",function(d) {return "barText_" + d.alumnoId;})
+            .attr("x",      function(d) { return 20 + LeyendaCalcularX(d.notaletra);})
+            .attr("y",      svgH - 15)
+            .attr("font-weight", "")
+            .attr("opacity", 1)
+            .text(function(d) { return d.notaletra; })
+        ;
+
+}
+
+function LeyendaCalcularX(nota){
+    if (primeranotaletra == nota)
+        leyendaX = 0;
+    leyendaX += 60;
+    return svgW / 2 - 200 + leyendaX;
+}
+
+function calcularPosicionY(cantidad, nota){
+    porcentajeAcumulado = nota != primeranotaletra? porcentajeAcumulado : 0;
+    porcentajeAcumulado += (cantidad / valorMaxEjeY);
+    return valorIniEjeY - (tamanoEjeY * porcentajeAcumulado);
+}
+
+function calcularHeight(cantidad){
+    return tamanoEjeY * (cantidad / valorMaxEjeY);
+}
+
+function barRect_MouseOver(){
+    this.parentNode.childNodes.forEach(function(e, i) {
+        if (e.id == "grupoTextoNota") {
+            e.childNodes.forEach(function(f,j) {
+                d3.select(f)
+                    .attr("opacity", opacityRectaOn)
+                    .attr("font-weight","bold")
+                ;
+            });
+        };
+    })
+}
+
+function barRect_MouseOut(){
+    barText.attr("opacity", 0.3)
+        .attr("font-weight","")
+    ;
+}
+
+function barText_MouseOver(alumnoid){
+    barRectOff();
+    d3.selectAll("#barText_" + alumnoid)
+        .each(function(e,i){
+            var nodes = this.parentNode.parentNode.childNodes;
+            d3.select(nodes.forEach(function(f,j){
+                if (f.id == "barRect"){
+                    d3.select(f)
+                        .attr("opacity", opacityTextoOn)
+                    ;
                 }
-            );
-        }
+            }));
+        })
+        .attr("opacity", opacityTextoOn)
+};
 
-        function type(d, i, columns) { //lo usa la funcion graficarBarrasDivididas
-            for (i = 1, t = 0; i < columns.length; ++i) t += d[columns[i]] = +d[columns[i]];
-            d.total = t;
-            return d;
-        }
+function barText_MouseOut(alumnoid){
+    barRectOn();
+    d3.selectAll("#barText_" + alumnoid)
+        .each(function(e,i){
+            var nodes = this.parentNode.parentNode.childNodes;
+            d3.select(nodes.forEach(function(f,j){
+                if (f.id == "barRect"){
+                    d3.select(f)
+                        .attr("opacity", opacityRectaOff)
+                    ;
+                }
+            }));
+        })
+        .attr("opacity", opacityTextoOff)
+};
+
+function barRectOff(){
+    d3.selectAll("#barRect")
+        .attr("opacity", 0)
+}
+
+function barRectOn(){
+    d3.selectAll("#barRect")
+        .attr("opacity", opacityRectaOff)
+}
 
 
 

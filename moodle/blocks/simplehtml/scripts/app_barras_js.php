@@ -1,4 +1,37 @@
+    <script type="text/css">
 
+
+        /* estilos para grafica de barras*/
+
+        #container_bar_graph .bar {
+            fill: steelblue;
+        }
+
+        #container_bar_graph text{
+            fill: "Blue";
+        }
+
+        #container_bar_graph .axis path,
+        #container_bar_graph .axis line{
+            fill: none;
+            stroke: black;
+        }
+
+        #container_bar_graph .line{
+            fill: none;
+            stroke: blue;
+            stroke-width: 2px;
+        }
+
+        #container_bar_graph .tick text{
+            font-size: 12px;
+        }
+
+        #container_bar_graph .tick line{
+            opacity: 0.1;
+        }
+
+    </script>
 
     <script type="application/javascript">
 

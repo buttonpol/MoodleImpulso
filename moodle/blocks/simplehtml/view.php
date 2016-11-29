@@ -75,7 +75,105 @@ $ending = 'curso_'.$courseid.'_'.$today.$output_file_type;
 
 
 //inicio del acordion de graficas
-echo html_writer::start_div('', array('id' => 'accordion'));
+echo html_writer::start_div('', array('id' => 'container_graficos'));
+echo html_writer::end_div();
+
+
+
+
+
+
+/*
+ *
+ * genera el reporte de promedios de pruebas de alumno
+ *
+ * */
+
+/*
+ *
+ * primero genera el reporte con hitos
+ *
+ * */
+//primero genero los hitos
+$data_graph=json_encode(sql_get_milestones($courseid));
+
+$report_type = "reporteHitos";
+/*ruta total del reporte*/
+$path_milestone_report = $dir . "/" . $report_type.'_'.$ending;
+
+/*guarda el reporte en el archivo*/
+file_put_contents($path_milestone_report, $data_graph);
+/*
+ *
+ * genera el listado de objetivos
+ *
+ * */
+
+
+
+$data_graph=json_encode(sql_get_goals($courseid));
+
+$report_type = "reporteObjetivos";
+/*ruta total del reporte*/
+$path_goals_report = $dir . "/" . $report_type.'_'.$ending;
+
+/*guarda el reporte en el archivo*/
+file_put_contents($path_goals_report, $data_graph);
+;
+print_object($data_graph);
+
+
+
+
+$data_graph=json_encode(sql_get_student_tests());
+print_object($data_graph);
+
+//$data_graph=json_encode(sql_get_student_average($student_id));
+
+$report_type = "reportePuntosHitos";
+/*ruta total del reporte*/
+$path_student_tests_report = $dir . "/" . $report_type.$ending; //aca le pongo el id del alumno para que no se pise con otra cosa
+//$path_student_average_report = $dir . "/" . 'datosFechaNota2.txt'; //aca le pongo el id del alumno para que no se pise con otra cosa
+
+/*guarda el reporte en el archivo*/
+file_put_contents($path_student_tests_report, $data_graph);
+
+
+
+//habilitar con el reporte de alumnos
+$graph_functions .= $report_type;
+
+////se puede borrar
+//echo "promedio de alumnos";
+//print_object($data_graph);
+////fin se puede borrar
+
+
+
+/*
+ *
+ * genera el reporte de barras divididas
+ *
+ * */
+$data_graph=sql_grafica_barras_divididas();
+
+
+$report_type = "reporteBarrasDivididas";
+/*ruta total del reporte*/
+$path_div_bar_report = $dir . "/" . $report_type.'_'.$ending;
+
+/*guarda el reporte en el archivo*/
+file_put_contents($path_div_bar_report, $data_graph);
+
+echo html_writer::start_div('', array('id' => 'container_div_bar_graph'));
+echo html_writer::end_div();
+$graph_functions .= ','.$report_type;
+
+
+
+
+echo html_writer::end_div();
+
 
 
 /*
@@ -95,7 +193,7 @@ $data_graph=json_encode(sql_grafica_circular());
 file_put_contents($path_pie_report, $data_graph);
 
 
-$graph_functions .= $report_type;
+$graph_functions .= ','.$report_type;
 echo html_writer::start_div('', array('id' => 'container_pie_graph'));
 echo html_writer::end_div();
 
@@ -126,80 +224,6 @@ echo html_writer::end_div();
 
 /*
  *
- * genera el reporte de barras divididas
- *
- * */
-$data_graph=sql_grafica_barras_divididas();
-
-
-$report_type = "reporteBarrasDivididas";
-/*ruta total del reporte*/
-$path_div_bar_report = $dir . "/" . $report_type.'_'.$ending;
-
-/*guarda el reporte en el archivo*/
-file_put_contents($path_div_bar_report, $data_graph);
-
-echo html_writer::start_div('', array('id' => 'container_div_bar_graph'));
-echo html_writer::end_div();
-$graph_functions .= ','.$report_type;
-
-
-
-/*
- *
- * genera el reporte de promedios de pruebas de alumno
- *
- * */
-
-/*
- *
- * primero genera el reporte con hitos
- *
- * */
-//primero genero los hitos
-$data_graph=json_encode(sql_get_milestones($courseid));
-
-$report_type = "reporteHitos";
-/*ruta total del reporte*/
-$path_milestone_report = $dir . "/" . $report_type.'_'.$ending;
-
-/*guarda el reporte en el archivo*/
-file_put_contents($path_milestone_report, $data_graph); //
-
-
-
-$student_id = 5;//esto hay que configurarlo dinamico
-
-
-$data_graph=json_encode(sql_get_student_tests());
-//print_object($data_graph);
-
-//$data_graph=json_encode(sql_get_student_average($student_id));
-
-$report_type = "reportePuntosHitos";
-/*ruta total del reporte*/
-$path_student_tests_report = $dir . "/" . $report_type.$ending; //aca le pongo el id del alumno para que no se pise con otra cosa
-//$path_student_average_report = $dir . "/" . 'datosFechaNota2.txt'; //aca le pongo el id del alumno para que no se pise con otra cosa
-
-/*guarda el reporte en el archivo*/
-file_put_contents($path_student_tests_report, $data_graph);
-
-echo html_writer::start_div('', array('id' => 'container_student_tests_graph'));
-echo html_writer::end_div();
-
-//habilitar con el reporte de alumnos
-$graph_functions .= ','.$report_type;
-
-////se puede borrar
-//echo "promedio de alumnos";
-//print_object($data_graph);
-////fin se puede borrar
-
-
-echo html_writer::end_div();
-
-/*
- *
  * genera el reporte de docentes
  *
  * */
@@ -227,17 +251,6 @@ echo html_writer::end_div();
 //
 //
 //
-////se puede borrar
-//echo "docentes del curso";
-//print_object($data_graph);
-////fin se puede borrar
-
-echo 'goals jsonencode';
-;
-print_object(json_encode(sql_get_goals()));
-echo 'goals';
-print_object(sql_get_goals());
-
 
 
 /*

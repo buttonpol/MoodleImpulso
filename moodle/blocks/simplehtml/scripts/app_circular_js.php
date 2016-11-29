@@ -1,4 +1,20 @@
+    <script type="text/css">
+        /* estilos para grafica circular*/
+        svg {
+            border: 1px solid #aaa;
+        }
 
+        text{
+            font-size: 10px;
+            text-anchor: middle;
+        }
+
+        .arc path {
+            stroke: #fff;
+        }
+
+
+    </script>
 
     <script type="application/javascript">
 
@@ -17,7 +33,7 @@
 
             ?>
 
-            $('#container_pie_graph').append('<?php echo $html_to_append ?>');
+            $('#container_graficos').append('<?php echo $html_to_append ?>');
 
             d3.json('<?php echo $path_pie_report;?>', function (err, datos) {
 

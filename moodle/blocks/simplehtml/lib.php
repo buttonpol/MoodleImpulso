@@ -191,22 +191,32 @@ function sql_get_student_average($student_id){
 //    LEFT JOIN mdl_quiz q ON q.id=qg.quiz)
 //    LEFT JOIN mdl_course c ON c.id=q.course";
 
-     $sql = "SELECT u.id as alumnoId, CONCAT(firstname,' ', lastname) AS alumnoNombre,IFNULL(truncate(qg.grade, 1),0) AS pruebanota,
-IFNULL(truncate((qg.grade *100/q.grade),1),0) as porcentaje,  
-truncate(q.grade,1) notatotal, q.name as nombreprueba, from_unixtime(q.timeopen) as pruebafecha, q.id as idquiz
-FROM mdl_user u
-INNER JOIN mdl_role_assignments ra ON ra.userid = u.id
-INNER JOIN mdl_context ct ON ct.id = ra.contextid
-INNER JOIN mdl_course c ON c.id = ct.instanceid
-INNER JOIN mdl_role r ON r.id = ra.roleid
-INNER JOIN mdl_course_categories cc ON cc.id = c.category
-LEFT JOIN mdl_quiz q ON q.course = c.id
-LEFT JOIN mdl_quiz_grades qg ON (u.id=qg.userid and q.id = qg.quiz)
-WHERE c.id =3 and  roleid=5 and q.id IN (Select quiz FROM mdl_quiz_grades) order by CONCAT(firstname,' ', lastname)";
+     $sql = "SELECT  @r:=@r+1 AS alumnoId, salida.*
+        from(SELECT  @rank:=@rank+1 AS id, u.id as alumnoIdAnterior, 
+        CONCAT(firstname,' ', lastname, ' (', IFNULL(truncate((qg.grade *100/q.grade),1),0),')') AS alumnoNombre,IFNULL(truncate(qg.grade, 1),0) AS pruebanotaoriginal,
+        IFNULL(truncate((qg.grade *100/q.grade),1),0) as pruebanota,  
+        truncate(q.grade,1) notatotal, q.name as nombreprueba, from_unixtime(q.timeopen) as pruebafecha, q.id as idquiz, 
+        truncate(q.grade,1) as puntajemax, gm.groupid
+        FROM mdl_user u
+        left join mdl_groups_members gm on gm.userid = u.id
+        INNER JOIN mdl_role_assignments ra ON ra.userid = u.id
+        INNER JOIN mdl_context ct ON ct.id = ra.contextid
+        INNER JOIN mdl_course c ON c.id = ct.instanceid
+        INNER JOIN mdl_role r ON r.id = ra.roleid
+        INNER JOIN mdl_course_categories cc ON cc.id = c.category
+        LEFT JOIN mdl_quiz q ON q.course = c.id
+        LEFT JOIN mdl_quiz_grades qg ON (u.id=qg.userid and q.id = qg.quiz)
+         WHERE c.id = 7 and groupid = 9 /*esto hay que dejarlo dinamico*/ 
+         and roleid=5 and q.id IN (Select quiz FROM mdl_quiz_grades) 
+         order by IFNULL(truncate((qg.grade *100/q.grade),1),0) desc, CONCAT(firstname,' ', lastname)) salida,
+          (select @r:=0)y";
+
+//    WHERE u.id = $student_id  and c.id = 3"; //agregar el grupo
+//     WHERE c.id =3 and roleid=5 and q.id IN (Select quiz FROM mdl_quiz_grades) order by CONCAT(firstname,' ', lastname)";
 
 
 
-//    WHERE u.id = $student_id  and c.id = 3";
+
 
     $params = array();
 
@@ -236,7 +246,7 @@ function sql_get_goals($course_id=null){
     goal.user_id,
     FROM_UNIXTIME(goal.date) objetivoFecha,
     goal.grade objetivoNota
-FROM quatros1_moodle.mdl_aplusabc_goals goal";
+FROM mdl_aplusabc_goals goal";
 // $sql = "select * from quatros1_moodle.mdl_aplusabc_goals ";
 
     $params = array();

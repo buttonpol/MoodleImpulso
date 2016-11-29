@@ -26,8 +26,8 @@
         /* para cargar los javascript de cada grafica*/
         require_once('app_circular_js.php');
         require_once('app_barras_js.php');
-        require_once('app_barras_divididas_js.php');
         require_once('app_pruebas_fecha_js.php');
+        require_once('app_barras_divididas_js.php');
         ?>
 
 
