@@ -9,7 +9,9 @@ var ticksX;
 var ticksY;
 var hitoOpacity;
 var paddingX = 100;
-var paddingY = 60;
+var paddingY = 80;
+
+var init = 0;
 
 var valorMinEjeX;
 var valorMaxEjeX;
@@ -30,7 +32,7 @@ var x1Ant;
 var y1Ant;
 
 var colores =  d3.scaleOrdinal()
-              .range(["#CEF6EC", "#D358F7", "#8000FF", "#ACFA58", "#FE2E64", "#FACC2E", "#6E6E6E", "#DF01A5", "#A901DB", "#00BFFF", "#00FFFF",
+              .range(["#000000", "#D358F7", "#8000FF", "#ACFA58", "#FE2E64", "#FACC2E", "#6E6E6E", "#DF01A5", "#A901DB", "#00BFFF", "#00FFFF",
               	"#00FF80", "#00FF00", "#F3F781", "#F7BE81", "#F79F81"])
               ;
 
@@ -60,8 +62,8 @@ function cargarDatosFechaNota(){
 		valorMinEjeX = d3.min(datosFechaNota, function (d) {return new Date(d.pruebafecha);});
 		var anio = valorMinEjeX.getFullYear();
 
-		cantidadAlumnos = d3.max(datosFechaNota, function (d) {return d.alumnoid;});
-		console.log(cantidadAlumnos);
+		//cantidadAlumnos = d3.max(datosFechaNota, function (d) { return d.alumnoid;});
+		cantidadAlumnos = datosFechaNota.length;
 
 		valorMinEjeX = new Date (anio + '-01-01');
 		valorMaxEjeX = new Date (anio + '-12-31');
@@ -69,11 +71,11 @@ function cargarDatosFechaNota(){
 		valorMinEjeY = d3.min(datosFechaNota, function (d) {return d.pruebanota;});
 		valorMinEjeY = valorMinEjeY < 0? valorMinEjeY:0;
 
-		valorMaxEjeY = d3.max(datosFechaNota, function (d) {return d.pruebanota;});	
+		valorMaxEjeY = 100;
 		valorMaxEjeY = valorMaxEjeY < 10? 10: valorMaxEjeY;
 
 		valorFinEjeX = svgW - paddingX;
-		valorIniEjeY = svgH - paddingY;
+		valorIniEjeY = svgH - 40;
 		valorFinEjeY = paddingY;
 
 		tamanoEjeY = valorIniEjeY - valorFinEjeY;
@@ -112,6 +114,7 @@ function cargarHitosFechaNota(){
 }
 
 function graficarFechaNota(){
+
 	var svg =     d3.select("body")
 					.append("div")
 					.attr("id", "divFechaNota")
@@ -181,18 +184,18 @@ function graficarFechaNota(){
 	   				 	.data(datosFechaNota)
 	   				 	.enter()
 	   				 	.append("circle")
-	   				 	.attr("class",  function (d) { return "circuloFechaNota_" + d.alumnoid;})
+	   				 	.attr("class", function (d) { return "circuloFechaNota_" + d.alumnoid + " " + "circuloNota_" + (d.pruebanota * 10);})
 	   				 	.classed("view", true)
 	   				 	.attr("cx",    function (d) { return xScale(new Date(d.pruebafecha)); })
 			        	.attr("cy",    function (d) { return yScale(d.pruebanota); })
 			        	.attr("r",     circleRadius)
-			        	//.attr("opacity", 0.7)
 			        	.style("fill", function (d) { return colores(d.alumnoid);  })
+						.style("cursor", "pointer")
 						.on("mouseover", function(d)
-					    	{return tooltiptext.text("Fecha: " + d.pruebafecha + " - Alumno: " + d.alumnonombre + " - Nota: " + d.pruebanota)
+					    	{prueba(d.pruebanota, 900); return tooltiptext.text("Fecha: " + d.pruebafecha + " - Nota: " + d.pruebanota)
 					    					   .attr("opacity",1);})
-					    .on("mouseout", function()
-					    	{return tooltiptext.attr("opacity",0);})
+					    .on("mouseout", function(d)
+					    	{prueba(d.pruebanota, 100); return tooltiptext.attr("opacity",0);})
 						;
 	/*
 	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Circles
@@ -238,8 +241,14 @@ function graficarFechaNota(){
 				  	    .attr("x2", function (d) { return xScale(new Date(d.objetivofecha)); })
 				  	    .attr("y2", function (d) { return yScale(d.objetivonota);})
 				  	    .attr("opacity", hitoOpacity)
-				  	    .attr("stroke-width", 3)
+				  	    .attr("stroke-width", 5)
 				  	    .attr("stroke", function (d) { return coloresObjetivo(d.objetivoid);  })
+							.on("mouseover", function(d)
+						{return tooltiptext.text("Siguiente objetivo: " + d.objetivonota)
+							.attr("opacity",1);})
+							.on("mouseout", function()
+							{return tooltiptext.attr("opacity",0);})
+		;
 	   					;   				
 
 	/*
@@ -314,7 +323,7 @@ function graficarFechaNota(){
 			           .attr("y", 30)
 					   .attr("font-family", "sans-serif")
 			           .attr("font-size", "20px")
-		    	       .attr("fill", "rgb(221, 221, 221)")
+		    	       .attr("fill", "rgb(150, 150, 150)")
 		    	       .attr("opacity",0)
 		    	       ;
 
@@ -323,31 +332,34 @@ function graficarFechaNota(){
                        .attr("id", "grupoTextoAlumnos")
                        ;
 
-    var textoAlumnoTodos = grupoTextoAlumnos
-    					.append("text")
-                      	.attr("id", "ttt_0")
-                      	.attr("x", svgW - paddingX)
-                      	.attr("y", 40)
-                      	.attr("font-weight", "")
-                      	.attr("opacity", 1)
-                      	.text("VER TODOS")
-                      	.on("click", function(d) {textoAlumnosTodos_Click();})
-
     var textoAlumnos = grupoTextoAlumnos
                       .selectAll("text")
                       .data(datosFechaNota)
                       .enter()
                       .append("text")
                       .attr("id",function(d) {return "ttt_" + d.alumnoid;})
+                      .attr("class", function(d) {return "textoNota_" + (d.pruebanota * 10);})
                       .attr("x", svgW - paddingX)
-                      .attr("y", function(d) { return 40 + d.alumnoid * 20;})
+                      .attr("y", function(d) { init = init +1; return 40 + init * 20;})
                       .attr("font-weight", "")
                       .attr("opacity", 1)
                       .text(function(d) { return d.alumnonombre; })
+					  .style("cursor", "pointer")
                       .on("mouseover", function(d) {textoAlumnos_MouseOver(d.alumnoid);})
-                      .on("mouseout",  function(d) {textoAlumnos_MouseOut(d.alumnoid);})
-                      .on("click",     function(d) {textoAlumnos_Click(d.alumnoid);})
+                      .on("mouseout",  function(d) {textoAlumnos_MouseOut (d.alumnoid);})
+                      .on("click",     function(d) {textoAlumnos_Click    (d.alumnoid);})
                       ;
+
+	var textoAlumnoTodos = grupoTextoAlumnos
+		.append("text")
+		.attr("id", "ttt_0")
+		.attr("x", svgW - paddingX)
+		.attr("y", 60 + init * 20)
+		.attr("font-weight", "")
+		.attr("opacity", 1)
+		.text("VER TODOS")
+		.on("click", function(d) {textoAlumnosTodos_Click();})
+		.style("cursor", "pointer")
 
 	/*
 	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Hitos
@@ -365,37 +377,37 @@ function graficarFechaNota(){
 		  .append("label")
 		  .attr("id","labelCheckboxObjetivos")
 		  .text("Ver Objetivos?")
+		  .style("display", "block")
 		  .append("input")
 		  .attr("id","checkboxObjetivos")
 		  .attr("type", "checkbox")
 		  .property("checked", true)
 		  .on("change", function(d) {checkBoxObjetivosChange();})
-//		  .style("top", "320")
-//		  .style("left", "150")
-		;																				
+		;							
 	
 	var checkboxHitos = 
 		d3.select("#divFechaNota")
 		  .append("label")
 		  .attr("id","labelCheckboxHitos")
 		  .text("Ver Hitos?")
+		  .style("display", "block")
 		  .append("input")
 		  .attr("id","checkboxHitos")
 		  .attr("type", "checkbox")
 		  .property("checked", true)
 		  .on("change", function(d) {checkBoxHitosChange();})
-//		  .style("top", "10")
-//		  .style("left", "10")
 		;
 
 	function checkBoxObjetivosChange(){
 		var cbObjetivosOpacity = d3.select("#checkboxObjetivos").node().checked ? 1 : 0;
-		d3.select("#objetivosGroup").attr("opacity",cbObjetivosOpacity);
+		d3.select("#objetivosGroup")
+		  .attr("opacity",cbObjetivosOpacity);
 	};
 
 	function checkBoxHitosChange(){
 		var cbHitosOpacity = d3.select("#checkboxHitos").node().checked ? 1 : 0;
-		d3.select("#hitosGroup").attr("opacity",cbHitosOpacity);
+		d3.select("#hitosGroup")
+		  .attr("opacity",cbHitosOpacity);
 	};
 
 	/*
@@ -423,6 +435,7 @@ function graficarFechaNota(){
 			d3.select(this)
 			  .classed("view", true)
 			  .classed("hidden", false)
+		;
 		})
 		;
 	}
@@ -435,6 +448,7 @@ function graficarFechaNota(){
 			d3.select(this)
 			  .classed("view", clickclick)
 			  .classed("hidden", !clickclick)
+		;
 		});
 		setOnClassView();
 	}
@@ -502,4 +516,12 @@ function graficarFechaNota(){
 				});
 			}
 		}
+
+	function prueba(nota, bold){
+		d3.selectAll(".textoNota_" + (nota * 10))
+		  .each(function(e,i){
+			d3.select(this)
+			  .attr("font-weight", bold);
+			});
+	}
 }

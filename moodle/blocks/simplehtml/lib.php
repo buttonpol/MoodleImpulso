@@ -61,26 +61,61 @@ function sql_grafica_barras_divididas()
     global $DB;
 
 
-    /*
-        $sql = "SELECT  CONCAT(firstname,\" \", lastname) AS Nombre, truncate(mdl_quiz_grades.grade,1) AS Nota
-    FROM ((mdl_user RIGHT JOIN mdl_quiz_grades ON mdl_user.id=mdl_quiz_grades.userid)
-    LEFT JOIN mdl_quiz ON mdl_quiz.id=mdl_quiz_grades.quiz)
-    LEFT JOIN mdl_course ON mdl_course.id=mdl_quiz.course";
 
+        $sql = "SELECT
+             qc.id as mhid, qc.name	as mhnombre, q.id as idquiz,
+              truncate((qa.maxmark * qas.fraction*100/maxmark ),1) as notaporcentaje,
+             (Select case notaporcentaje=truncate((qa.maxmark * qas.fraction*100/maxmark ),1)
+             WHEN notaporcentaje<40 THEN 'D'
+             WHEN (40.0<=notaporcentaje) and (notaporcentaje<50.0) THEN 'R'
+             WHEN (50.0<=notaporcentaje) and (notaporcentaje<70.0) THEN 'B'
+             WHEN (70.0<=notaporcentaje)  THEN 'S'
+             else 'otro' end)  as notaletra, 
+             truncate(qa.maxmark * qas.fraction,1) as notapregunta,
+             truncate(maxmark,1) as puntosmaximos,
+             u.id as alumnoid, CONCAT(u.firstname,' ', u.lastname) AS alumnonombre,
+             gm.groupid
+            
+            FROM mdl_quiz_attempts quiza
+            JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+            JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+            JOIN mdl_question_attempt_steps qas ON qas.questionattemptid = qa.id
+            LEFT JOIN mdl_question_attempt_step_data qasd ON qasd.attemptstepid = qas.id
+            LEFT JOIN mdl_quiz q ON quiza.quiz=q.id
+            LEFT JOIN mdl_user u ON quiza.userid=u.id
+            left join mdl_groups_members gm on gm.userid = u.id
+            LEFT JOIN mdl_question ques ON ques.id = qa.questionid
+            LEFT JOIN mdl_question_categories qc ON ques.category = qc.id
+            
+             WHERE   qas.state in('gradedpartial', 'gradedright')  and q.id=23
+            
+            order by groupid, mhid,notaletra
+            ";
+/*
+    $sql = "SELECT count(*)
+             
+            
+            FROM mdl_quiz_attempts quiza
+            JOIN mdl_question_usages qu ON qu.id = quiza.uniqueid
+            JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+            JOIN mdl_question_attempt_steps qas ON qas.questionattemptid = qa.id
+            LEFT JOIN mdl_question_attempt_step_data qasd ON qasd.attemptstepid = qas.id
+            LEFT JOIN mdl_quiz q ON quiza.quiz=q.id
+            LEFT JOIN mdl_user u ON quiza.userid=u.id
+            left join mdl_groups_members gm on gm.userid = u.id
+            LEFT JOIN mdl_question ques ON ques.id = qa.questionid
+            LEFT JOIN mdl_question_categories qc ON ques.category = qc.id
+            
+             WHERE   qas.state in('gradedpartial', 'gradedright')  and q.id=23
+            
+         */
 
         $params = array();
 
-        $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);//return $resultados;
-    */
+        $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);
 
-    $resultados = "State,Under 5 Years,5 to 13 Years,14 to 17 Years,18 to 24 Years,25 to 44 Years,45 to 64 Years,65 Years and Ove
-AL,310504,552339,259034,450818,1231572,1215966,641667
-AK,52083,85640,42153,74257,198724,183159,50277
-AZ,515910,828669,362642,601943,1804762,1523681,862573
-AR,202070,343207,157204,264160,754420,727124,407205
-CA,2704659,4499890,2159981,3853788,10604510,8819342,4114496";
 
-    return $resultados;
+    return array_values($resultados);
 
 }
 
@@ -191,11 +226,10 @@ function sql_get_student_average($student_id){
 //    LEFT JOIN mdl_quiz q ON q.id=qg.quiz)
 //    LEFT JOIN mdl_course c ON c.id=q.course";
 
-     $sql = "SELECT  @r:=@r+1 AS alumnoId, salida.*
-        from(SELECT  @rank:=@rank+1 AS id, u.id as alumnoIdAnterior, 
+     $sql = "SELECT   u.id as idalumno, 
         CONCAT(firstname,' ', lastname, ' (', IFNULL(truncate((qg.grade *100/q.grade),1),0),')') AS alumnoNombre,IFNULL(truncate(qg.grade, 1),0) AS pruebanotaoriginal,
         IFNULL(truncate((qg.grade *100/q.grade),1),0) as pruebanota,  
-        truncate(q.grade,1) notatotal, q.name as nombreprueba, from_unixtime(q.timeopen) as pruebafecha, q.id as idquiz, 
+        truncate(q.grade,1) notatotal, q.name as nombreprueba, date(from_unixtime(q.timeopen)) as pruebafecha, q.id as idquiz, 
         truncate(q.grade,1) as puntajemax, gm.groupid
         FROM mdl_user u
         left join mdl_groups_members gm on gm.userid = u.id
@@ -208,8 +242,7 @@ function sql_get_student_average($student_id){
         LEFT JOIN mdl_quiz_grades qg ON (u.id=qg.userid and q.id = qg.quiz)
          WHERE c.id = 7 and groupid = 9 /*esto hay que dejarlo dinamico*/ 
          and roleid=5 and q.id IN (Select quiz FROM mdl_quiz_grades) 
-         order by IFNULL(truncate((qg.grade *100/q.grade),1),0) desc, CONCAT(firstname,' ', lastname)) salida,
-          (select @r:=0)y";
+         order by IFNULL(truncate((qg.grade *100/q.grade),1),0) desc, CONCAT(firstname,' ', lastname)";
 
 //    WHERE u.id = $student_id  and c.id = 3"; //agregar el grupo
 //     WHERE c.id =3 and roleid=5 and q.id IN (Select quiz FROM mdl_quiz_grades) order by CONCAT(firstname,' ', lastname)";

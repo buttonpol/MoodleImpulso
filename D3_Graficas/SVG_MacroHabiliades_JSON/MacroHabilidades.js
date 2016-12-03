@@ -1,6 +1,7 @@
-    var datosMH;
+var datosMH;
 var svgW = 700;
-var svgH = 600;
+var svgH = 900;
+var init = 0;
 
 var paddingX = 100;
 var paddingY = 100;
@@ -155,7 +156,7 @@ function graficarMacroHabilidades(){
                       .append("text")
                       .attr("id",function(d) {return "barText_" + d.alumnoid;})
                       .attr("x", svgW - paddingX + 10)
-                      .attr("y", function(d) {return paddingY + d.alumnoid * 22;})
+                      .attr("y", function(d) {init = init+1; return paddingY + init * 20;})
                       .attr("font-weight", "")
                       .attr("opacity", opacityTextoOff)
                       .text(function(d) { return d.alumnonombre; })

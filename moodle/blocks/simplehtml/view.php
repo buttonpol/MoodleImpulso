@@ -156,6 +156,9 @@ $graph_functions .= $report_type;
  *
  * */
 $data_graph=sql_grafica_barras_divididas();
+print_object($data_graph);
+$data_graph=json_encode(sql_grafica_barras_divididas());
+print_object($data_graph);
 
 
 $report_type = "reporteBarrasDivididas";
