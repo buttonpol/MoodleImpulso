@@ -120,13 +120,13 @@ $path_goals_report = $dir . "/" . $report_type.'_'.$ending;
 /*guarda el reporte en el archivo*/
 file_put_contents($path_goals_report, $data_graph);
 ;
-print_object($data_graph);
+//print_object($data_graph);
 
 
 
 
 $data_graph=json_encode(sql_get_student_tests());
-print_object($data_graph);
+//print_object($data_graph);
 
 //$data_graph=json_encode(sql_get_student_average($student_id));
 
@@ -156,9 +156,9 @@ $graph_functions .= $report_type;
  *
  * */
 $data_graph=sql_grafica_barras_divididas();
-print_object($data_graph);
+//print_object($data_graph);
 $data_graph=json_encode(sql_grafica_barras_divididas());
-print_object($data_graph);
+//print_object($data_graph);
 
 
 $report_type = "reporteBarrasDivididas";

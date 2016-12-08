@@ -1,190 +1,137 @@
+[{"mhid":"50","id":"1","mhnombre":"Parte 1","idquiz":"23","notas":
 [
-{"mhid":53,"mhnombre":"Parte 4",
-"notas":
+{"notaletra":"D","alumnos":
 [
-{"notaletra":"B", "alumnos":
-[
-
-{"alumnoid":98,"alumnonombre":"Ignacio Franco","notaporcentaje":57.1,"groupid":9},
-{"alumnoid":101,"alumnonombre":"Jano Heredia","notaporcentaje":57.1,"groupid":9},
-{"alumnoid":114,"alumnonombre":"Agustin Tzitzios","notaporcentaje":57.1,"groupid":9},
-{"alumnoid":106,"alumnonombre":"Florencia Monzon","notaporcentaje":57.1,"groupid":9},
-{"alumnoid":105,"alumnonombre":"Fabricio Miranda","notaporcentaje":57.1,"groupid":9},
-{"alumnoid":112,"alumnonombre":"Juan Techera","notaporcentaje":57.1,"groupid":9},
-{"alumnoid":90,"alumnonombre":"Lucas Alvez","notaporcentaje":57.1,"groupid":9}
-]
-},
-{"notaletra":"D", "alumnos":
-[
-
-{"alumnoid":107,"alumnonombre":"Fatima Muzzi","notaporcentaje":28.5,"groupid":9},
-{"alumnoid":93,"alumnonombre":"Deborah Blanco","notaporcentaje":28.5,"groupid":9},
-{"alumnoid":96,"alumnonombre":"Brian Curcio","notaporcentaje":28.5,"groupid":9},
-{"alumnoid":88,"alumnonombre":"Nahuel Acosta","notaporcentaje":28.5,"groupid":9},
-{"alumnoid":100,"alumnonombre":"Cesar Gonzalez","notaporcentaje":28.5,"groupid":9},
-{"alumnoid":103,"alumnonombre":"Mayte Lopez","notaporcentaje":28.5,"groupid":9}
-]
-},
-{"notaletra":"R", "alumnos":
-[
-
-{"alumnoid":102,"alumnonombre":"Melani Laino","notaporcentaje":42.8,"groupid":9},
-{"alumnoid":109,"alumnonombre":"Angel Risso","notaporcentaje":42.8,"groupid":9},
-{"alumnoid":99,"alumnonombre":"Nathaya Goerki","notaporcentaje":42.8,"groupid":9},
-{"alumnoid":89,"alumnonombre":"Yamila Aldao","notaporcentaje":42.8,"groupid":9},
-{"alumnoid":97,"alumnonombre":"Giuliana De Leon","notaporcentaje":42.8,"groupid":9},
-{"alumnoid":104,"alumnonombre":"Anthony Martinez","notaporcentaje":42.8,"groupid":9},
-{"alumnoid":108,"alumnonombre":"Maira Paz","notaporcentaje":42.8,"groupid":9}
-]
-},
-{"notaletra":"S", "alumnos":
-[
-
-{"alumnoid":92,"alumnonombre":"Antonella Baz","notaporcentaje":71.4,"groupid":9}
+{"alumnoposicion":1,"alumnoid":"88","alumnonombre":"Nahuel Acosta","notaporcentaje":"33.33"},
+{"alumnoposicion":2,"alumnoid":"89","alumnonombre":"Yamila Aldao","notaporcentaje":"50.00"},
+{"alumnoposicion":3,"alumnoid":"90","alumnonombre":"Lucas Alvez","notaporcentaje":"50.00"},
+{"alumnoposicion":4,"alumnoid":"92","alumnonombre":"Antonella Baz","notaporcentaje":"100.00"},
+{"alumnoposicion":5,"alumnoid":"93","alumnonombre":"Deborah Blanco","notaporcentaje":"50.00"},
+{"alumnoposicion":6,"alumnoid":"95","alumnonombre":"Macarena Castillo","notaporcentaje":"66.67"},
+{"alumnoposicion":7,"alumnoid":"96","alumnonombre":"Brian Curcio","notaporcentaje":"50.00"},
+{"alumnoposicion":8,"alumnoid":"97","alumnonombre":"Giuliana De Leon","notaporcentaje":"0.00"},
+{"alumnoposicion":9,"alumnoid":"98","alumnonombre":"Ignacio Franco","notaporcentaje":"66.67"},
+{"alumnoposicion":10,"alumnoid":"99","alumnonombre":"Nathaya Goerki","notaporcentaje":"100.00"},
+{"alumnoposicion":11,"alumnoid":"100","alumnonombre":"Cesar Gonzalez","notaporcentaje":"83.33"},
+{"alumnoposicion":12,"alumnoid":"101","alumnonombre":"Jano Heredia","notaporcentaje":"33.33"},
+{"alumnoposicion":13,"alumnoid":"102","alumnonombre":"Melani Laino","notaporcentaje":"16.67"},
+{"alumnoposicion":14,"alumnoid":"103","alumnonombre":"Mayte Lopez","notaporcentaje":"83.33"},
+{"alumnoposicion":15,"alumnoid":"104","alumnonombre":"Anthony Martinez","notaporcentaje":"83.33"},
+{"alumnoposicion":16,"alumnoid":"105","alumnonombre":"Fabricio Miranda","notaporcentaje":"50.00"},
+{"alumnoposicion":17,"alumnoid":"106","alumnonombre":"Florencia Monzon","notaporcentaje":"83.33"},
+{"alumnoposicion":18,"alumnoid":"107","alumnonombre":"Fatima Muzzi","notaporcentaje":"66.67"},
+{"alumnoposicion":19,"alumnoid":"108","alumnonombre":"Maira Paz","notaporcentaje":"100.00"},
+{"alumnoposicion":20,"alumnoid":"109","alumnonombre":"Angel Risso","notaporcentaje":"33.33"},
+{"alumnoposicion":21,"alumnoid":"110","alumnonombre":"Enrique Rosa","notaporcentaje":"83.33"},
+{"alumnoposicion":22,"alumnoid":"111","alumnonombre":"Federico Sauco","notaporcentaje":"83.33"},
+{"alumnoposicion":23,"alumnoid":"112","alumnonombre":"Juan Techera","notaporcentaje":"66.67"},
+{"alumnoposicion":24,"alumnoid":"114","alumnonombre":"Agustin Tzitzios","notaporcentaje":"100.00"},
+{"alumnoposicion":25,"alumnoid":"113","alumnonombre":"Luz Ubalde","notaporcentaje":"0.00"}
 ]
 }
 ]
 },
-{"mhid":50,"mhnombre":"Parte 1",
-"notas":
+{"mhid":"51","id":"26","mhnombre":"Parte 2","idquiz":"23","notas":
 [
-{"notaletra":"B", "alumnos":
+{"notaletra":"D","alumnos":
 [
-
-{"alumnoid":105,"alumnonombre":"Fabricio Miranda","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":112,"alumnonombre":"Juan Techera","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":90,"alumnonombre":"Lucas Alvez","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":98,"alumnonombre":"Ignacio Franco","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":107,"alumnonombre":"Fatima Muzzi","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":93,"alumnonombre":"Deborah Blanco","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":96,"alumnonombre":"Brian Curcio","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":89,"alumnonombre":"Yamila Aldao","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":95,"alumnonombre":"Macarena Castillo","notaporcentaje":66.6,"groupid":9}
-]
-},
-{"notaletra":"D", "alumnos":
-[
-
-{"alumnoid":109,"alumnonombre":"Angel Risso","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":102,"alumnonombre":"Melani Laino","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":101,"alumnonombre":"Jano Heredia","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":88,"alumnonombre":"Nahuel Acosta","notaporcentaje":33.3,"groupid":9}
-]
-},
-{"notaletra":"S", "alumnos":
-[
-
-{"alumnoid":100,"alumnonombre":"Cesar Gonzalez","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":106,"alumnonombre":"Florencia Monzon","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":104,"alumnonombre":"Anthony Martinez","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":111,"alumnonombre":"Federico Sauco","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":103,"alumnonombre":"Mayte Lopez","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":110,"alumnonombre":"Enrique Rosa","notaporcentaje":83.3,"groupid":9}
+{"alumnoposicion":1,"alumnoid":"88","alumnonombre":"Nahuel Acosta","notaporcentaje":"50.00"},
+{"alumnoposicion":2,"alumnoid":"89","alumnonombre":"Yamila Aldao","notaporcentaje":"33.33"},
+{"alumnoposicion":3,"alumnoid":"90","alumnonombre":"Lucas Alvez","notaporcentaje":"50.00"},
+{"alumnoposicion":4,"alumnoid":"92","alumnonombre":"Antonella Baz","notaporcentaje":"33.33"},
+{"alumnoposicion":5,"alumnoid":"93","alumnonombre":"Deborah Blanco","notaporcentaje":"83.33"},
+{"alumnoposicion":6,"alumnoid":"95","alumnonombre":"Macarena Castillo","notaporcentaje":"83.33"},
+{"alumnoposicion":7,"alumnoid":"96","alumnonombre":"Brian Curcio","notaporcentaje":"83.33"},
+{"alumnoposicion":8,"alumnoid":"97","alumnonombre":"Giuliana De Leon","notaporcentaje":"50.00"},
+{"alumnoposicion":9,"alumnoid":"98","alumnonombre":"Ignacio Franco","notaporcentaje":"66.67"},
+{"alumnoposicion":10,"alumnoid":"99","alumnonombre":"Nathaya Goerki","notaporcentaje":"33.33"},
+{"alumnoposicion":11,"alumnoid":"100","alumnonombre":"Cesar Gonzalez","notaporcentaje":"83.33"},
+{"alumnoposicion":12,"alumnoid":"101","alumnonombre":"Jano Heredia","notaporcentaje":"33.33"},
+{"alumnoposicion":13,"alumnoid":"102","alumnonombre":"Melani Laino","notaporcentaje":"83.33"},
+{"alumnoposicion":14,"alumnoid":"103","alumnonombre":"Mayte Lopez","notaporcentaje":"33.33"},
+{"alumnoposicion":15,"alumnoid":"104","alumnonombre":"Anthony Martinez","notaporcentaje":"66.67"},
+{"alumnoposicion":16,"alumnoid":"105","alumnonombre":"Fabricio Miranda","notaporcentaje":"16.67"},
+{"alumnoposicion":17,"alumnoid":"106","alumnonombre":"Florencia Monzon","notaporcentaje":"33.33"},
+{"alumnoposicion":18,"alumnoid":"107","alumnonombre":"Fatima Muzzi","notaporcentaje":"66.67"},
+{"alumnoposicion":19,"alumnoid":"108","alumnonombre":"Maira Paz","notaporcentaje":"50.00"},
+{"alumnoposicion":20,"alumnoid":"109","alumnonombre":"Angel Risso","notaporcentaje":"0.00"},
+{"alumnoposicion":21,"alumnoid":"110","alumnonombre":"Enrique Rosa","notaporcentaje":"66.67"},
+{"alumnoposicion":22,"alumnoid":"111","alumnonombre":"Federico Sauco","notaporcentaje":"16.67"},
+{"alumnoposicion":23,"alumnoid":"112","alumnonombre":"Juan Techera","notaporcentaje":"83.33"},
+{"alumnoposicion":24,"alumnoid":"114","alumnonombre":"Agustin Tzitzios","notaporcentaje":"66.67"},
+{"alumnoposicion":25,"alumnoid":"113","alumnonombre":"Luz Ubalde","notaporcentaje":"0.00"}
 ]
 }
 ]
-},{"mhid":51,"mhnombre":"Parte 2",
-"notas":
-[
-{"notaletra":"B", "alumnos":
-[
-
-{"alumnoid":107,"alumnonombre":"Fatima Muzzi","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":97,"alumnonombre":"Giuliana De Leon","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":114,"alumnonombre":"Agustin Tzitzios","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":88,"alumnonombre":"Nahuel Acosta","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":110,"alumnonombre":"Enrique Rosa","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":104,"alumnonombre":"Anthony Martinez","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":90,"alumnonombre":"Lucas Alvez","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":108,"alumnonombre":"Maira Paz","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":98,"alumnonombre":"Ignacio Franco","notaporcentaje":66.6,"groupid":9}
-]
 },
-{"notaletra":"D", "alumnos":
+{"mhid":"52","id":"51","mhnombre":"Parte 3","idquiz":"23","notas":
 [
-
-{"alumnoid":92,"alumnonombre":"Antonella Baz","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":99,"alumnonombre":"Nathaya Goerki","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":103,"alumnonombre":"Mayte Lopez","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":89,"alumnonombre":"Yamila Aldao","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":106,"alumnonombre":"Florencia Monzon","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":105,"alumnonombre":"Fabricio Miranda","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":111,"alumnonombre":"Federico Sauco","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":101,"alumnonombre":"Jano Heredia","notaporcentaje":33.3,"groupid":9}
-]
-},
-{"notaletra":"S", "alumnos":
+{"notaletra":"D","alumnos":
 [
-
-{"alumnoid":93,"alumnonombre":"Deborah Blanco","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":96,"alumnonombre":"Brian Curcio","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":95,"alumnonombre":"Macarena Castillo","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":100,"alumnonombre":"Cesar Gonzalez","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":112,"alumnonombre":"Juan Techera","notaporcentaje":83.3,"groupid":9},
-{"alumnoid":102,"alumnonombre":"Melani Laino","notaporcentaje":83.3,"groupid":9}
+{"alumnoposicion":1,"alumnoid":"88","alumnonombre":"Nahuel Acosta","notaporcentaje":"33.33"},
+{"alumnoposicion":2,"alumnoid":"89","alumnonombre":"Yamila Aldao","notaporcentaje":"33.33"},
+{"alumnoposicion":3,"alumnoid":"90","alumnonombre":"Lucas Alvez","notaporcentaje":"66.67"},
+{"alumnoposicion":4,"alumnoid":"92","alumnonombre":"Antonella Baz","notaporcentaje":"50.00"},
+{"alumnoposicion":5,"alumnoid":"93","alumnonombre":"Deborah Blanco","notaporcentaje":"50.00"},
+{"alumnoposicion":6,"alumnoid":"95","alumnonombre":"Macarena Castillo","notaporcentaje":"33.33"},
+{"alumnoposicion":7,"alumnoid":"96","alumnonombre":"Brian Curcio","notaporcentaje":"50.00"},
+{"alumnoposicion":8,"alumnoid":"97","alumnonombre":"Giuliana De Leon","notaporcentaje":"0.00"},
+{"alumnoposicion":9,"alumnoid":"98","alumnonombre":"Ignacio Franco","notaporcentaje":"33.33"},
+{"alumnoposicion":10,"alumnoid":"99","alumnonombre":"Nathaya Goerki","notaporcentaje":"16.67"},
+{"alumnoposicion":11,"alumnoid":"100","alumnonombre":"Cesar Gonzalez","notaporcentaje":"66.67"},
+{"alumnoposicion":12,"alumnoid":"101","alumnonombre":"Jano Heredia","notaporcentaje":"66.67"},
+{"alumnoposicion":13,"alumnoid":"102","alumnonombre":"Melani Laino","notaporcentaje":"66.67"},
+{"alumnoposicion":14,"alumnoid":"103","alumnonombre":"Mayte Lopez","notaporcentaje":"0.00"},
+{"alumnoposicion":15,"alumnoid":"104","alumnonombre":"Anthony Martinez","notaporcentaje":"50.00"},
+{"alumnoposicion":16,"alumnoid":"105","alumnonombre":"Fabricio Miranda","notaporcentaje":"33.33"},
+{"alumnoposicion":17,"alumnoid":"106","alumnonombre":"Florencia Monzon","notaporcentaje":"66.67"},
+{"alumnoposicion":18,"alumnoid":"107","alumnonombre":"Fatima Muzzi","notaporcentaje":"33.33"},
+{"alumnoposicion":19,"alumnoid":"108","alumnonombre":"Maira Paz","notaporcentaje":"66.67"},
+{"alumnoposicion":20,"alumnoid":"109","alumnonombre":"Angel Risso","notaporcentaje":"16.67"},
+{"alumnoposicion":21,"alumnoid":"110","alumnonombre":"Enrique Rosa","notaporcentaje":"66.67"},
+{"alumnoposicion":22,"alumnoid":"111","alumnonombre":"Federico Sauco","notaporcentaje":"50.00"},
+{"alumnoposicion":23,"alumnoid":"112","alumnonombre":"Juan Techera","notaporcentaje":"33.33"},
+{"alumnoposicion":24,"alumnoid":"114","alumnonombre":"Agustin Tzitzios","notaporcentaje":"50.00"},
+{"alumnoposicion":25,"alumnoid":"113","alumnonombre":"Luz Ubalde","notaporcentaje":"0.00"}
 ]
 }
 ]
-},{"mhid":52,"mhnombre":"Parte 3",
-"notas":
-[
-{"notaletra":"B", "alumnos":
-[
-
-{"alumnoid":110,"alumnonombre":"Enrique Rosa","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":100,"alumnonombre":"Cesar Gonzalez","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":106,"alumnonombre":"Florencia Monzon","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":104,"alumnonombre":"Anthony Martinez","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":90,"alumnonombre":"Lucas Alvez","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":108,"alumnonombre":"Maira Paz","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":111,"alumnonombre":"Federico Sauco","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":102,"alumnonombre":"Melani Laino","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":101,"alumnonombre":"Jano Heredia","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":114,"alumnonombre":"Agustin Tzitzios","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":93,"alumnonombre":"Deborah Blanco","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":92,"alumnonombre":"Antonella Baz","notaporcentaje":50.0,"groupid":9},
-{"alumnoid":96,"alumnonombre":"Brian Curcio","notaporcentaje":50.0,"groupid":9}
-]
 },
-{"notaletra":"D", "alumnos":
+{"mhid":"53","id":"76","mhnombre":"Parte 4","idquiz":"23","notas":
 [
+	{"notaletra":"D","alumnos":
+		[
+			{"alumnoposicion":1,"alumnoid":"88","alumnonombre":"Nahuel Acosta","notaporcentaje":"28.57"},
+			{"alumnoposicion":2,"alumnoid":"89","alumnonombre":"Yamila Aldao","notaporcentaje":"42.86"},
+			{"alumnoposicion":3,"alumnoid":"90","alumnonombre":"Lucas Alvez","notaporcentaje":"57.14"},
+			{"alumnoposicion":4,"alumnoid":"92","alumnonombre":"Antonella Baz","notaporcentaje":"71.43"},
+			{"alumnoposicion":5,"alumnoid":"93","alumnonombre":"Deborah Blanco","notaporcentaje":"28.57"},
+			{"alumnoposicion":6,"alumnoid":"95","alumnonombre":"Macarena Castillo","notaporcentaje":"0.00"},
+			{"alumnoposicion":7,"alumnoid":"96","alumnonombre":"Brian Curcio","notaporcentaje":"28.57"},
+			{"alumnoposicion":8,"alumnoid":"97","alumnonombre":"Giuliana De Leon","notaporcentaje":"42.86"},
+			{"alumnoposicion":9,"alumnoid":"98","alumnonombre":"Ignacio Franco","notaporcentaje":"57.14"},
+			{"alumnoposicion":10,"alumnoid":"99","alumnonombre":"Nathaya Goerki","notaporcentaje":"42.86"},
+			{"alumnoposicion":11,"alumnoid":"100","alumnonombre":"Cesar Gonzalez","notaporcentaje":"28.57"},
+			{"alumnoposicion":12,"alumnoid":"101","alumnonombre":"Jano Heredia","notaporcentaje":"57.14"}
+		]
+	},{"notaletra":"B","alumnos":
 
-{"alumnoid":88,"alumnonombre":"Nahuel Acosta","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":95,"alumnonombre":"Macarena Castillo","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":105,"alumnonombre":"Fabricio Miranda","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":112,"alumnonombre":"Juan Techera","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":98,"alumnonombre":"Ignacio Franco","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":107,"alumnonombre":"Fatima Muzzi","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":109,"alumnonombre":"Angel Risso","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":99,"alumnonombre":"Nathaya Goerki","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":89,"alumnonombre":"Yamila Aldao","notaporcentaje":33.3,"groupid":9}
-]
-}
-]
-},{"mhid":54,"mhnombre":"Parte 5",
-"notas":
-[
-{"notaletra":"B", "alumnos":
-[
-
-{"alumnoid":88,"alumnonombre":"Nahuel Acosta","notaporcentaje":66.6,"groupid":9},
-{"alumnoid":101,"alumnonombre":"Jano Heredia","notaporcentaje":66.6,"groupid":9}
-]
-},
-{"notaletra":"D", "alumnos":
-[
-
-{"alumnoid":105,"alumnonombre":"Fabricio Miranda","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":104,"alumnonombre":"Anthony Martinez","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":112,"alumnonombre":"Juan Techera","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":103,"alumnonombre":"Mayte Lopez","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":90,"alumnonombre":"Lucas Alvez","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":108,"alumnonombre":"Maira Paz","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":98,"alumnonombre":"Ignacio Franco","notaporcentaje":16.6,"groupid":9},
-{"alumnoid":110,"alumnonombre":"Enrique Rosa","notaporcentaje":33.3,"groupid":9},
-{"alumnoid":92,"alumnonombre":"Antonella Baz","notaporcentaje":16.6,"groupid":9}
-]
-}
+		[
+			{"alumnoposicion":13,"alumnoid":"102","alumnonombre":"Melani Laino","notaporcentaje":"42.86"},
+			{"alumnoposicion":14,"alumnoid":"103","alumnonombre":"Mayte Lopez","notaporcentaje":"28.57"},
+			{"alumnoposicion":15,"alumnoid":"104","alumnonombre":"Anthony Martinez","notaporcentaje":"42.86"},
+			{"alumnoposicion":16,"alumnoid":"105","alumnonombre":"Fabricio Miranda","notaporcentaje":"57.14"},
+			{"alumnoposicion":17,"alumnoid":"106","alumnonombre":"Florencia Monzon","notaporcentaje":"57.14"},
+			{"alumnoposicion":18,"alumnoid":"107","alumnonombre":"Fatima Muzzi","notaporcentaje":"28.57"},
+			{"alumnoposicion":19,"alumnoid":"108","alumnonombre":"Maira Paz","notaporcentaje":"42.86"},
+			{"alumnoposicion":20,"alumnoid":"109","alumnonombre":"Angel Risso","notaporcentaje":"42.86"},
+			{"alumnoposicion":21,"alumnoid":"110","alumnonombre":"Enrique Rosa","notaporcentaje":"100.00"},
+			{"alumnoposicion":22,"alumnoid":"111","alumnonombre":"Federico Sauco","notaporcentaje":"100.00"},
+			{"alumnoposicion":23,"alumnoid":"112","alumnonombre":"Juan Techera","notaporcentaje":"57.14"},
+			{"alumnoposicion":24,"alumnoid":"114","alumnonombre":"Agustin Tzitzios","notaporcentaje":"57.14"},
+			{"alumnoposicion":25,"alumnoid":"113","alumnonombre":"Luz Ubalde","notaporcentaje":"0.00"}
+		]
+	}
 ]
 }
 ]

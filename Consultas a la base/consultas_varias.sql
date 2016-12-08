@@ -99,3 +99,14 @@ condiciones
 order by  mhid,  u.alumnoposicion,groupid,notaletra
 
 ;
+
+
+/*
+
+context es una instancia de algo en moodle
+    contextlevel es el tipo de instancia.
+        50 = curso
+        40 = categoria
+    instanceid es el id de la instancia
+    path es la secuencia de id de contextos en la que se encuentra
+*/
