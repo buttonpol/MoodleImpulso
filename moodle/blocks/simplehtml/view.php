@@ -95,7 +95,7 @@ echo html_writer::end_div();
  *
  * */
 //primero genero los hitos
-$data_graph=json_encode(sql_get_milestones($courseid));
+$data_graph=sql_get_milestones_json($courseid);
 
 $report_type = "reporteHitos";
 /*ruta total del reporte*/
@@ -111,7 +111,7 @@ file_put_contents($path_milestone_report, $data_graph);
 
 
 
-$data_graph=json_encode(sql_get_goals($courseid));
+$data_graph=sql_get_goals_json($courseid);
 
 $report_type = "reporteObjetivos";
 /*ruta total del reporte*/
@@ -122,11 +122,12 @@ file_put_contents($path_goals_report, $data_graph);
 ;
 //print_object($data_graph);
 
+echo 'students';
+print_object(sql_course_students_json(7, 9));
 
-
-
-$data_graph=json_encode(sql_get_student_tests());
-//print_object($data_graph);
+$data_graph=sql_get_student_tests_json();
+echo 'student tests';
+print_object($data_graph);
 
 //$data_graph=json_encode(sql_get_student_average($student_id));
 
@@ -155,9 +156,9 @@ $graph_functions .= $report_type;
  * genera el reporte de barras divididas
  *
  * */
-$data_graph=sql_grafica_barras_divididas();
+$data_graph=sql_categories_report_json();
 //print_object($data_graph);
-$data_graph=json_encode(sql_grafica_barras_divididas());
+$data_graph=sql_categories_report_json();
 //print_object($data_graph);
 
 

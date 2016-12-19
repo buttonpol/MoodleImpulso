@@ -25,11 +25,16 @@ LEFT JOIN mdl_course ON mdl_course.id=mdl_quiz.course";
 
     $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);
 
-
-    return array_values($resultados);
+    return $resultados;
 
 }
 
+
+
+function sql_grafica_circular_json()
+{
+    return json_encode(array_values(sql_grafica_circular()));
+}
 
 
 function sql_grafica_barras()
@@ -55,172 +60,114 @@ function sql_grafica_barras()
 }
 
 
-function sql_grafica_barras_divididas()
+function sql_categories_report($course_id = 7, $group_id = 9, $quiz_id = 23)
 {
 
     global $DB;
 
-
-
-        $sql = "SELECT 
-            @rn2:=@rn2 + 1 AS id, b.* from (
-            select 
-            mhid,
-            mhnombre,
-            idquiz,
-            notaletra,
-            round(SUM(notaporcentaje),2) notaporcentaje,
-            round(SUM(notapregunta),2) notapregunta,
-            puntosmaximos,
-            alumnoid,
-            alumnoposicion,
-            alumnonombre,
-            groupid
-        FROM
-            (SELECT 
-                qc.id AS mhid,
-                    qc.name AS mhnombre,
-                    q.id AS idquiz,
-                    qas.state,
-                    IFNULL((qa.maxmark * qas.fraction * 100 / qa.maxmark), 0) AS notaporcentaje,
-                    (SELECT 
-                            CASE notaporcentaje = IFNULL((qa.maxmark * qas.fraction * 100 / qa.maxmark), 0)
-                                    WHEN notaporcentaje < 40 THEN 'D'
-                                    WHEN
-                                        (40.0 <= notaporcentaje)
-                                            AND (notaporcentaje < 50.0)
-                                    THEN
-                                        'R'
-                                    WHEN
-                                        (50.0 <= notaporcentaje)
-                                            AND (notaporcentaje < 70.0)
-                                    THEN
-                                        'B'
-                                    WHEN (70.0 <= notaporcentaje) THEN 'S'
-                                    ELSE 'otro'
-                                END
-                        ) AS notaletra,
-                    IFNULL(qa.maxmark * qas.fraction, 0) AS notapregunta,
-                    IFNULL(ROUND(maxmark, 1), 0) AS puntosmaximos,
-                    u.alumnoid AS alumnoid,
-                    u.alumnoposicion,
-                    alumnonombre,
-                    gm.groupid
-            FROM
-                (SELECT 
-                @rn:=@rn + 1 AS alumnoposicion, alumno.*
-            FROM
-                (SELECT 
-                u1.id alumnoid,
-                    CONCAT(u1.firstname, ' ', u1.lastname) alumnonombre,
-                    g.id groupoid,
-                    g.name gruponombre
-            FROM
-                mdl_role_assignments ra
-            JOIN mdl_user u1 ON u1.id = ra.userid
-            JOIN mdl_role r ON r.id = ra.roleid
-            JOIN mdl_context cxt ON cxt.id = ra.contextid
-            JOIN mdl_course c ON c.id = cxt.instanceid
-            JOIN mdl_groups_members gm ON gm.userid = u1.id
-            JOIN mdl_groups g ON g.id = gm.groupid
-            WHERE
-                ra.userid = u1.id
-                    AND ra.contextid = cxt.id
-                    AND cxt.contextlevel = 50
-                    AND cxt.instanceid = c.id
-                    AND roleid = 5
-                    AND c.id = 7
-                    AND g.id IN (9)
-            ORDER BY u1.lastname , u1.firstname) alumno, (SELECT @rn:=0) t2) u
-            JOIN mdl_quiz_attempts quiza ON u.alumnoid = quiza.userid
-            LEFT JOIN mdl_question_usages qu ON quiza.uniqueid = qu.id
-            LEFT JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
-            LEFT JOIN mdl_question_attempt_steps qas ON qas.questionattemptid = qa.id
-            LEFT JOIN mdl_quiz q ON q.id = quiza.quiz
-            LEFT JOIN mdl_groups_members gm ON u.alumnoid = gm.userid
-            LEFT JOIN mdl_question ques ON ques.id = qa.questionid
-            LEFT JOIN mdl_question_categories qc ON ques.category = qc.id
-            WHERE
-                q.id = 23
-            ) a
-        
-        
-        group by 
-        mhid, mhnombre, idquiz, alumnoid, alumnoposicion, alumnonombre, groupid 
-        
-        ORDER BY mhid , alumnoposicion , groupid , notaletra ) b, (SELECT @rn2:=0) t3
-";
-
-
-    $params = array();
-
-    $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);
-
-
-    $mhid=0;
-    $salida = array();
-    $alumno_lista = array();
-    $categoria_item = array();
-    $categoria_lista = array();
-    $alumno_posicion = 0;
-    $categoria_actual = '';
-    foreach ($resultados as $id=>$resultado){
-
-        $alumno_item = array();
-
-        $categoria_actual = '';
-
-        if ($mhid != $resultado->mhid) {
-            if ($mhid != 0) {
-                $categoria_item['notas'] []= array( 'notaletra'=>$resultado->notaletra,'alumnos'=> $alumno_lista);
-
-                //print_object(json_encode($alumno_lista));
-                array_push($salida, $categoria_item);
-            }
-            $categoria_item = array();
-            $alumno_lista = array();
-            $alumno_posicion = 0;
-
-            $mhid = $resultado->mhid;
-            $categoria_item['mhid']=$resultado->mhid;
-            $categoria_item['id']=$resultado->id;
-            $categoria_item['mhnombre']=$resultado->mhnombre;
-            $categoria_item['idquiz']=$resultado->idquiz;
-
-        }
-
-        $alumno_posicion = $alumno_posicion + 1;
-        $alumno_item['alumnoposicion'] = $alumno_posicion;
-        $alumno_item['alumnoid'] = $resultado->alumnoid;
-        $alumno_item['alumnonombre'] = $resultado->alumnonombre;
-        $alumno_item['notaporcentaje'] = $resultado->notaporcentaje;
-        array_push( $alumno_lista, $alumno_item);
-        //$categoria_item['mhid'] = $resultado=>$mhid;
-
-        //print_object(json_encode($salida));
-        //print_object(json_encode($alumno_lista));
+    $conditions1= '';
+    if(!is_null($courseid)){
+        $conditions1 = " and c.id = $course_id ";
     }
-    print_object(json_encode($salida));
-    print_object($salida);
+    if (!is_null($groupid)){
+        $conditions1 = $conditions." and g.groupid = $group_id ";
+    }
 
-    return array_values($resultados);
+    $conditions2 = '';
+    if (!is_null($quiz_id)){
+        $conditions2 = " and q.id = $quiz_id ";
+    }
 
-}
 
 
-function sql_alumnos_curso($curso)
-{
 
-    global $DB;
+    $sql = "SELECT 
+	@rn2:=@rn2 + 1 AS id, b.* from (
+	select 
+    mhid,
+    mhnombre,
+    idquiz,
+    max(notaletra) notaletravalor,
+	round(SUM(notaporcentaje),2) notaporcentaje,
+    round(SUM(notapregunta),2) notapregunta,
+    puntosmaximos,
+    alumnoid,
+    alumnoposicion,
+    alumnonombre,
+    groupid
+FROM
+    (SELECT 
+        qc.id AS mhid,
+            qc.name AS mhnombre,
+            q.id AS idquiz,
+            qas.state,
+            IFNULL((qa.maxmark * qas.fraction * 100 / qa.maxmark), 0) AS notaporcentaje,
+            (SELECT 
+                    CASE notaporcentaje = IFNULL((qa.maxmark * qas.fraction * 100 / qa.maxmark), 0)
+                            WHEN notaporcentaje < 40 THEN 1
+                            WHEN
+                                (40.0 <= notaporcentaje)
+                                    AND (notaporcentaje < 50.0)
+                            THEN
+                                2
+                            WHEN
+                                (50.0 <= notaporcentaje)
+                                    AND (notaporcentaje < 70.0)
+                            THEN
+                                3
+                            WHEN (70.0 <= notaporcentaje) THEN 4
+                            ELSE -1
+                        END
+                ) AS notaletra,
+            IFNULL(qa.maxmark * qas.fraction, 0) AS notapregunta,
+            IFNULL(ROUND(maxmark, 1), 0) AS puntosmaximos,
+            u.alumnoid AS alumnoid,
+            u.alumnoposicion,
+            alumnonombre,
+            gm.groupid
+    FROM
+        (SELECT 
+        @rn:=@rn + 1 AS alumnoposicion, alumno.*
+    FROM
+        (SELECT 
+        u1.id alumnoid,
+            CONCAT(u1.firstname, ' ', u1.lastname) alumnonombre,
+            g.id groupoid,
+            g.name gruponombre
+    FROM
+        mdl_role_assignments ra
+    JOIN mdl_user u1 ON u1.id = ra.userid
+    JOIN mdl_role r ON r.id = ra.roleid
+    JOIN mdl_context cxt ON cxt.id = ra.contextid
+    JOIN mdl_course c ON c.id = cxt.instanceid
+    JOIN mdl_groups_members gm ON gm.userid = u1.id
+    JOIN mdl_groups g ON g.id = gm.groupid
+    WHERE
+        ra.userid = u1.id
+            AND ra.contextid = cxt.id
+            AND cxt.contextlevel = 50
+            AND cxt.instanceid = c.id
+            AND roleid = 5 ".$conditions1."
+    ORDER BY u1.lastname , u1.firstname) alumno, (SELECT @rn:=0) t2) u
+    JOIN mdl_quiz_attempts quiza ON u.alumnoid = quiza.userid
+    LEFT JOIN mdl_question_usages qu ON quiza.uniqueid = qu.id
+    LEFT JOIN mdl_question_attempts qa ON qa.questionusageid = qu.id
+    LEFT JOIN mdl_question_attempt_steps qas ON qas.questionattemptid = qa.id
+    LEFT JOIN mdl_quiz q ON q.id = quiza.quiz
+    LEFT JOIN mdl_groups_members gm ON u.alumnoid = gm.userid
+    LEFT JOIN mdl_question ques ON ques.id = qa.questionid
+    LEFT JOIN mdl_question_categories qc ON ques.category = qc.id
+    WHERE 1=1 
+        ".$conditions2."
+    ) a
 
-    $sql = "SELECT u.firstname Nombre,u.lastname Apellido, c.shortname 'Codigo Curso',c.fullname 'Nombre curso'
-FROM mdl_user u
-INNER JOIN mdl_role_assignments ra ON ra.userid = u.id
-INNER JOIN mdl_context ct ON ct.id = ra.contextid
-INNER JOIN mdl_course c ON c.id = ct.instanceid
-INNER JOIN mdl_role r ON r.id = ra.roleid
-INNER JOIN mdl_course_categories cc ON cc.id = c.category
-WHERE c.id =$curso and  roleid=5";
+
+group by 
+mhid, mhnombre, idquiz, alumnoid, alumnoposicion, alumnonombre, groupid 
+
+ORDER BY mhid , alumnoposicion , groupid , notaletra ) b, (SELECT @rn2:=0) t3
+
+";
 
 
     $params = array();
@@ -232,12 +179,196 @@ WHERE c.id =$curso and  roleid=5";
 
 }
 
+
+function sql_categories_report_json($course_id = 7, $group_id = 9, $quiz_id = 23)
+{
+    $resultados = sql_categories_report( $course_id, $group_id , $quiz_id  );
+
+    $alumno_lista_posicion = array();
+    $categoria_lista = array();
+    $categoria_item_nota_lista = array();
+    $alumno_posicion = 0;
+    $salida = array();
+
+    //print_object($resultados);
+    foreach ($resultados as $id=>$resultado){
+        $letra = '';
+        switch ($resultado->notaletravalor) {
+            case 1:
+                $letra = 'D';
+                break;
+            case 2:
+                $letra = 'R';
+                break;
+            case 3:
+                $letra = 'B';
+                break;
+
+            case 4:
+                $letra = 'S';
+        }
+        // asigno a cada alumno una posicion en la lista final
+        if(!array_key_exists($resultado->alumnoid,$alumno_lista_posicion)){
+            $alumno_posicion +=1;
+            $alumno_lista_posicion[$resultado->alumnoid] = array(
+                'alumnoposicion'=>$alumno_posicion,
+                'alumnoid'=>$resultado->alumnoid,
+                'alumnonombre'=>$resultado->alumnonombre
+                );
+        }
+        //mantengo la lista madre de categorias
+        if (!array_key_exists($resultado->mhid, $categoria_lista)){
+
+            $categoria_item = array();
+            $categoria_item['mhid']=$resultado->mhid;
+            $categoria_item['id']=$resultado->id;
+            $categoria_item['mhnombre']=$resultado->mhnombre;
+            $categoria_item['idquiz']=$resultado->idquiz;
+            $categoria_lista[$resultado->mhid]=$categoria_item;
+        }
+        //mantengo la lista de notas dentro de una categoria
+        if (!array_key_exists($resultado->mhid, $categoria_item_nota_lista)){
+            $categoria_item_nota_lista[$resultado->mhid]=array();
+
+        }
+        if (!array_key_exists($resultado->notaletravalor, $categoria_item_nota_lista[$resultado->mhid])){
+
+            //lo inicio con las categorias de notas hardcoded, corregir a dinamico luego
+            //D
+            $categoria_item_nota_item = array();
+            $categoria_item_nota_item['notaletra']="D";
+            $categoria_item_nota_item['notaletravalor']=1;
+            $categoria_item_nota_item['cantidadalumnos']=0;
+            $categoria_item_nota_item['categorianombre']=$resultado->mhnombre;
+            $categoria_item_nota_item['mhid']=$resultado->mhid;
+            $categoria_item_nota_item['alumnos']=array();
+
+            $categoria_item_nota_lista[$resultado->mhid][1]=$categoria_item_nota_item;
+            //B
+            $categoria_item_nota_item = array();
+            $categoria_item_nota_item['notaletra']="R";
+            $categoria_item_nota_item['notaletravalor']=2;
+            $categoria_item_nota_item['cantidadalumnos']=0;
+            $categoria_item_nota_item['categorianombre']=$resultado->mhnombre;
+            $categoria_item_nota_item['mhid']=$resultado->mhid;
+            $categoria_item_nota_item['alumnos']=array();
+
+            $categoria_item_nota_lista[$resultado->mhid][2]=$categoria_item_nota_item;
+
+            //B
+            $categoria_item_nota_item = array();
+            $categoria_item_nota_item['notaletra']="B";
+            $categoria_item_nota_item['notaletravalor']=3;
+            $categoria_item_nota_item['cantidadalumnos']=0;
+            $categoria_item_nota_item['categorianombre']=$resultado->mhnombre;
+            $categoria_item_nota_item['mhid']=$resultado->mhid;
+            $categoria_item_nota_item['alumnos']=array();
+
+            $categoria_item_nota_lista[$resultado->mhid][3]=$categoria_item_nota_item;
+
+            //S
+            $categoria_item_nota_item = array();
+            $categoria_item_nota_item['notaletra']="S";
+            $categoria_item_nota_item['notaletravalor']=4;
+            $categoria_item_nota_item['cantidadalumnos']=0;
+            $categoria_item_nota_item['categorianombre']=$resultado->mhnombre;
+            $categoria_item_nota_item['mhid']=$resultado->mhid;
+            $categoria_item_nota_item['alumnos']=array();
+
+            $categoria_item_nota_lista[$resultado->mhid][4]=$categoria_item_nota_item;
+
+        }
+        array_push($categoria_item_nota_lista[$resultado->mhid][$resultado->notaletravalor]['alumnos'], $alumno_lista_posicion[$resultado->alumnoid]);
+        $categoria_item_nota_lista[$resultado->mhid][$resultado->notaletravalor]['cantidadalumnos'] +=1;
+
+    }
+
+    //echo 'categoria_item_nota_lista';
+    //print_object($categoria_item_nota_lista);
+
+    foreach ($categoria_item_nota_lista as $item){
+
+        $mhidactual='0';
+        //echo 'lista item';
+       // print_object($item);
+        ksort($item);
+        $salidanotas = array();
+        foreach ($item as $nota){
+
+            //print_object($nota);
+           $mhidactual = $nota['mhid'];
+            array_push( $salidanotas, $nota);
+        }
+        //echo 'categoria columna';
+        $categoria_lista[$mhidactual]['notas'] = $salidanotas;
+        //print_object($categoria_lista[$mhidactual]);
+        //print_object(json_encode($salidanotas));
+    }
+
+    //print_object($categoria_lista);
+    //print_object(json_encode($categoria_item_nota_lista));
+
+
+
+    //genero la salida a partir de la lista de categorias
+    foreach ($categoria_lista as $id=>$categoria){
+
+        array_push($salida, $categoria);
+    }
+
+    print_object($salida);
+    print_object(json_encode($salida));
+
+    return json_encode(array_values($salida));
+
+}
+
+
+function sql_course_students($courseid = null, $groupid = null)
+{
+
+    global $DB;
+    $conditions= '';
+    if(!is_null($courseid)){
+        $conditions = "and c.id = $courseid ";
+    }
+    if (!is_null($groupid)){
+        $conditions = $conditions." and gm.groupid = $groupid ";
+    }
+
+    $sql = "SELECT  u.id alumnoid, c.id cursoid, gm.groupid grupoid, CONCAT(firstname,' ', lastname) alumnonombre, u.firstname nombre,u.lastname alumnoapellido, 
+c.shortname 'codigocurso',c.fullname 'nombrecurso'
+FROM mdl_user u
+inner join mdl_groups_members gm on gm.userid = u.id
+INNER JOIN mdl_role_assignments ra ON ra.userid = u.id
+INNER JOIN mdl_context ct ON ct.id = ra.contextid
+INNER JOIN mdl_course c ON c.id = ct.instanceid
+INNER JOIN mdl_role r ON r.id = ra.roleid
+INNER JOIN mdl_course_categories cc ON cc.id = c.category
+WHERE roleid=5 ".$conditions ." order by gm.groupid, u.lastname"; //aca poner condicional el groupid y el courseid
+
+//    echo $sql;
+
+    $params = array();
+
+    $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);
+
+
+    return $resultados;
+
+}
+
+
+function sql_course_students_json($courseid = null, $groupid = null){
+    return json_encode(array_values(sql_course_students($courseid, $groupid)));
+}
+
 function sql_get_docentes_curso($curso)
 {
 
     global $DB;
 
-    $sql = "SELECT u.firstname Nombre,u.lastname Apellido, c.shortname 'Codigo Curso',c.fullname 'Nombre curso'
+    $sql = "SELECT u.firstname Nombre,u.lastname Apellido, c.shortname 'Codigo Curso',c.fullname 'Nombre curso', c.id cursoid
         FROM mdl_user u
         INNER JOIN mdl_role_assignments ra ON ra.userid = u.id
         INNER JOIN mdl_context ct ON ct.id = ra.contextid
@@ -252,7 +383,15 @@ function sql_get_docentes_curso($curso)
     $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);
 
 
-    return array_values($resultados);
+    return $resultados;
+
+}
+
+
+function sql_get_docentes_curso_json($curso)
+{
+
+    return json_encode(array_values(sql_get_docentes_curso($curso)));
 
 }
 
@@ -278,8 +417,16 @@ function sql_get_milestones($curso){
     $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);
 //    print_object($resultados);
 
-    return array_values($resultados);
+    return $resultados;
+
 }
+
+
+function sql_get_milestones_json($curso){
+    return json_encode(array_values(sql_get_milestones($curso)));
+}
+
+
 
 function sql_get_student_average($student_id){
     //grafica de puntos
@@ -314,8 +461,8 @@ function sql_get_student_average($student_id){
 //    LEFT JOIN mdl_quiz q ON q.id=qg.quiz)
 //    LEFT JOIN mdl_course c ON c.id=q.course";
 
-     $sql = "SELECT   u.id as idalumno, 
-        CONCAT(firstname,' ', lastname, ' (', IFNULL(round((qg.grade *100/q.grade),1),0),')') AS alumnoNombre,IFNULL(round(qg.grade, 1),0) AS pruebanotaoriginal,
+     $sql = "SELECT   u.id as alumnoid, 
+        CONCAT(firstname,' ', lastname) AS alumnonombre,IFNULL(round(qg.grade, 1),0) AS pruebanotaoriginal,
         IFNULL(round((qg.grade *100/q.grade),1),0) as pruebanota,  
         round(q.grade,1) notatotal, q.name as nombreprueba, date(from_unixtime(q.timeopen)) as pruebafecha, q.id as idquiz, 
         round(q.grade,1) as puntajemax, gm.groupid
@@ -335,7 +482,7 @@ function sql_get_student_average($student_id){
 //    WHERE u.id = $student_id  and c.id = 3"; //agregar el grupo
 //     WHERE c.id =3 and roleid=5 and q.id IN (Select quiz FROM mdl_quiz_grades) order by CONCAT(firstname,' ', lastname)";
 
-
+     $sql2 = "select * from mdl_aplusabc_student_tests  where groupid = 9";
 
 
 
@@ -348,11 +495,16 @@ function sql_get_student_average($student_id){
 //         $params = array_merge($params, array('c.id', $course_id));
 //     }
 
-    $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);
+    $resultados = $DB->get_records_sql($sql2, $params, 0, $userlimit=0);
 
 
-    return array_values($resultados);
+    return $resultados;
 
+}
+
+
+function sql_get_student_tests_json($student_id = null, $course_id = null){
+    return json_encode(array_values(sql_get_student_tests()));
 }
 
 function sql_get_goals($course_id=null){
@@ -375,4 +527,8 @@ FROM mdl_aplusabc_goals goal";
 
 
     return array_values($resultados);
+}
+
+function sql_get_goals_json($course_id=null){
+    return json_encode(array_values(sql_get_goals($course_id)));
 }
