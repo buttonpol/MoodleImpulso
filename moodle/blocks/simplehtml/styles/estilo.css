@@ -1,1 +1,56 @@
 
+svg {
+    border: 1px solid #aaa;
+}
+
+#container_student_tests_graph .view {
+    opacity: 0.5;
+}
+
+#container_student_tests_graph .click {
+    opacity: 1;
+}
+
+#container_student_tests_graph .hidden {
+    display: none;
+}
+
+#container_div_bar_graph #grupoTextoNota text,
+#container_student_tests_graph #grupoTextoAlumnos text{
+    font-size: 14px;
+    text-anchor: left;
+}
+
+#container_student_tests_graph #hitosGroup text{
+    font-size: 12px;
+    text-anchor: middle;
+}
+
+#container_div_pie_graph text{
+    font-size: 16px;
+    text-anchor: middle;
+}
+
+#container_div_pie_graph .arc path {
+    stroke: #fff;
+}
+
+.axis path,
+.axis line{
+    fill: none;
+    stroke: black;
+}
+
+.line{
+    fill: none;
+    stroke: blue;
+    stroke-width: 2px;
+}
+
+.tick text{
+    font-size: 10px;
+}
+
+.tick line{
+    opacity: 0.2;
+}

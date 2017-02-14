@@ -316,8 +316,8 @@ function sql_categories_report_json($course_id = 7, $group_id = 9, $quiz_id = 23
         array_push($salida, $categoria);
     }
 
-    print_object($salida);
-    print_object(json_encode($salida));
+    //print_object($salida);
+    //print_object(json_encode($salida));
 
     return json_encode(array_values($salida));
 
@@ -395,6 +395,29 @@ function sql_get_docentes_curso_json($curso)
 
 }
 
+function sql_get_quiz_stats(){
+/*    SET @idQuiz = 23;
+SET @porcentajeDeAprobacion = 50;
+
+SELECT tabla1.grupo,alumnosQueAsistieron,
+cantidadAprobados,
+(alumnosQueAsistieron - cantidadAprobados) as CantidadNoAprobados,
+truncate((cantidadAprobados*100 / alumnosQueAsistieron),1) as PorcentajeAprobados
+FROM
+(SELECT groupid as grupo, count(*) as alumnosQueAsistieron
+FROM quatros1_moodle_20161125.mdl_impulsoweb_student_tests
+WHERE  idquiz=@idQuiz
+Group by grupo
+order by grupo) tabla1
+INNER JOIN
+    (SELECT groupid as grupo, count(*) as cantidadAprobados
+FROM quatros1_moodle_20161125.mdl_impulsoweb_student_tests
+WHERE  idquiz=@idQuiz and pruebanota > @porcentajeDeAprobacion
+Group by grupo
+order by grupo) tabla2
+ON  tabla1.grupo = tabla2.grupo
+*/
+}
 
 function sql_get_milestones($curso){
 
@@ -406,7 +429,7 @@ function sql_get_milestones($curso){
             FROM_UNIXTIME(m.date , '%Y-%m-%d') as hitoFecha,
             m.short_description as hitoNombre,
             m.long_description as hitoDescripcion
-        FROM mdl_aplusabc_milestones m
+        FROM mdl_impulsoweb_milestones m
         where m.course_id  = $curso"
     ;
 
@@ -448,6 +471,7 @@ function sql_get_student_average($student_id){
 
     $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);
 
+
     return array_values($resultados);
 
 }
@@ -482,7 +506,7 @@ function sql_get_student_average($student_id){
 //    WHERE u.id = $student_id  and c.id = 3"; //agregar el grupo
 //     WHERE c.id =3 and roleid=5 and q.id IN (Select quiz FROM mdl_quiz_grades) order by CONCAT(firstname,' ', lastname)";
 
-     $sql2 = "select * from mdl_aplusabc_student_tests  where groupid = 9";
+     $sql2 = "select * from mdl_impulsoweb_student_tests  where groupid = 9";
 
 
 
@@ -519,8 +543,8 @@ function sql_get_goals($course_id=null){
     goal.user_id,
     FROM_UNIXTIME(goal.date) objetivoFecha,
     goal.grade objetivoNota
-FROM mdl_aplusabc_goals goal";
-// $sql = "select * from quatros1_moodle.mdl_aplusabc_goals ";
+FROM mdl_impulsoweb_goals goal";
+// $sql = "select * from quatros1_moodle.mdl_impulsoweb_goals ";
 
     $params = array();
     $resultados = $DB->get_records_sql($sql, $params, 0, $userlimit=0);

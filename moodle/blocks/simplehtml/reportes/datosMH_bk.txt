@@ -1,0 +1,149 @@
+[
+	{
+		"mhid":1,
+		"mhnombre":"Comprension Lectora",
+		"notas":
+			[
+				{
+					"notaletra":"D",
+					"alumnos":
+						[
+							{"alumnoid":1, "alumnonombre":"a1"},
+							{"alumnoid":2, "alumnonombre":"a2"}
+						]
+				},
+				{
+					"notaletra":"R",
+					"alumnos":
+						[
+							{"alumnoid":3, "alumnonombre":"a3"},
+							{"alumnoid":4, "alumnonombre":"a4"},
+							{"alumnoid":5, "alumnonombre":"a5"},
+							{"alumnoid":6, "alumnonombre":"a6"}
+						]
+				},
+				{
+					"notaletra":"B",
+					"alumnos":
+						[
+							{"alumnoid":7, "alumnonombre":"a7"},
+							{"alumnoid":8, "alumnonombre":"a8"},
+							{"alumnoid":9, "alumnonombre":"a9"},
+							{"alumnoid":10, "alumnonombre":"a10"},
+							{"alumnoid":11, "alumnonombre":"a11"},
+							{"alumnoid":12, "alumnonombre":"a12"},
+							{"alumnoid":13, "alumnonombre":"a13"},
+							{"alumnoid":14, "alumnonombre":"a14"}
+						]
+				},
+				{
+					"notaletra":"S",
+					"alumnos":
+						[
+							{"alumnoid":15, "alumnonombre":"a15"},
+							{"alumnoid":16, "alumnonombre":"a16"},
+							{"alumnoid":17, "alumnonombre":"a17"},
+							{"alumnoid":18, "alumnonombre":"a18"}
+						]
+				}
+			]
+	},
+	{
+		"mhid":2,
+		"mhnombre":"Compresion Auditiva",
+		"notas":
+			[
+				{
+					"notaletra":"D",
+					"alumnos":
+						[
+							{"alumnoid":1, "alumnonombre":"a1"},
+							{"alumnoid":2, "alumnonombre":"a2"},
+							{"alumnoid":3, "alumnonombre":"a3"}
+						]
+				},
+				{
+					"notaletra":"R",
+					"alumnos":
+						[
+							{"alumnoid":4, "alumnonombre":"a4"},
+							{"alumnoid":5, "alumnonombre":"a5"}
+						]
+				},
+				{
+					"notaletra":"B",
+					"alumnos":
+						[
+							{"alumnoid":6, "alumnonombre":"a6"},
+							{"alumnoid":7, "alumnonombre":"a7"},
+							{"alumnoid":8, "alumnonombre":"a8"},
+							{"alumnoid":9, "alumnonombre":"a9"},
+							{"alumnoid":10, "alumnonombre":"a10"},
+							{"alumnoid":11, "alumnonombre":"a11"},
+							{"alumnoid":12, "alumnonombre":"a12"},
+							{"alumnoid":13, "alumnonombre":"a13"},
+							{"alumnoid":14, "alumnonombre":"a14"},
+							{"alumnoid":15, "alumnonombre":"a15"}
+						]
+				},
+				{
+					"notaletra":"S",
+					"alumnos":
+						[
+							{"alumnoid":16, "alumnonombre":"a16"},
+							{"alumnoid":17, "alumnonombre":"a17"},
+							{"alumnoid":18, "alumnonombre":"a18"}	
+						]
+				}
+			]
+	},
+	{
+		"mhid":3,
+		"mhnombre":"Produccion Escrita",
+		"notas":
+			[
+				{
+					"notaletra":"D",
+					"alumnos":
+						[
+							{"alumnoid":1, "alumnonombre":"a1"}
+						]
+				},
+				{
+					"notaletra":"R",
+					"alumnos":
+						[
+							{"alumnoid":2, "alumnonombre":"a2"},
+							{"alumnoid":3, "alumnonombre":"a3"}
+						]
+				},
+				{
+					"notaletra":"B",
+					"alumnos":
+						[
+							{"alumnoid":4, "alumnonombre":"a4"},
+							{"alumnoid":5, "alumnonombre":"a5"},
+							{"alumnoid":6, "alumnonombre":"a6"},
+							{"alumnoid":7, "alumnonombre":"a7"},
+							{"alumnoid":8, "alumnonombre":"a8"},
+							{"alumnoid":9, "alumnonombre":"a9"},
+							{"alumnoid":10, "alumnonombre":"a10"},
+							{"alumnoid":11, "alumnonombre":"a11"},
+							{"alumnoid":12, "alumnonombre":"a12"},
+							{"alumnoid":13, "alumnonombre":"a13"},
+							{"alumnoid":14, "alumnonombre":"a14"},
+							{"alumnoid":15, "alumnonombre":"a15"},
+							{"alumnoid":16, "alumnonombre":"a16"},
+							{"alumnoid":17, "alumnonombre":"a17"}
+						]
+				},
+				{
+					"notaletra":"S",
+					"alumnos":
+						[
+							{"alumnoid":18, "alumnonombre":"a18"}
+						]
+				}
+			]
+	}
+]

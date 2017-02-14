@@ -1,0 +1,11 @@
+[
+	{
+		"nombre":"Asistencias",
+		"dato": "15"
+	},
+
+	{
+		"nombre":"Faltas",
+		"dato": "2"
+	}
+]

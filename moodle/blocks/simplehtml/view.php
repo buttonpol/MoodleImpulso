@@ -63,7 +63,6 @@ $editnode->make_active();
 //$simplehtml_form = new simplehtml_form();
 echo $OUTPUT->header();
 
-
 /*
  * aca empieza la parte de las graficas
  * */
@@ -74,9 +73,82 @@ $today = (new \DateTime())->format('Ymd');
 $ending = 'curso_'.$courseid.'_'.$today.$output_file_type;
 
 
-//inicio del acordion de graficas
-echo html_writer::start_div('', array('id' => 'container_graficos'));
-echo html_writer::end_div();
+
+////inicio del acordion de graficas
+//echo html_writer::start_div('', array('id' => 'container_graficos'));
+//echo html_writer::end_div();
+
+
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+?>
+<a id="showlink" style="visibility: hidden;" href='#' onclick='overlay()'>Mostrar gr&aacute;ficas</a>
+    <div id="pepe" style="visibility: visible;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width:100%;
+            height:100%;
+            text-align:center;
+            z-index: 1000;">
+
+        <div id="layer_container" style="width:1200px;
+            margin: 100px auto;
+            background-color: #fff;
+            border:1px solid #000;
+            padding:15px;
+            text-align:center;">
+            <a href='#' onclick='overlay()'
+               style="position:fixed;
+               right: 10px;
+               background-color: rgba(25, 245, 8, 0.36);">
+                   Ocultar gr&aacute;ficas</a>
+            <h3>Evolución año 2016 del grupo C</h3>
+            <div id="container_student_tests_graph">
+            </div>
+            <hr>
+            <h3>Detalles de prueba 2016-11-01</h3>
+            <div>
+                <h4>Resultados </h4>
+                <div>
+                    <div>Estudiantes aprueban: 9</div>
+                    <div>Promedio que aprueban: 34.6%</div>
+                    <div>Estudiantes no aprueban: 17</div>
+
+                </div>
+            </div>
+            <div id="container_div_bar_graph" style="width: 800">
+            </div>
+
+
+            <h3>Reporte</h3>
+            <h3>Asistencia a prueba 2016-11-01</h3>
+            <div id="container_div_pie_graph">
+            </div>
+
+
+        </div>
+    </div>
+<?php
+/**
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
 
 
 
@@ -95,54 +167,54 @@ echo html_writer::end_div();
  *
  * */
 //primero genero los hitos
-$data_graph=sql_get_milestones_json($courseid);
+//$data_graph=sql_get_milestones_json($courseid);
 
-$report_type = "reporteHitos";
-/*ruta total del reporte*/
-$path_milestone_report = $dir . "/" . $report_type.'_'.$ending;
+//$report_type = "reporteHitos";
+///*ruta total del reporte*/
+//$path_milestone_report = $dir . "/" . $report_type.'_'.$ending;
+//
+///*guarda el reporte en el archivo*/
+////file_put_contents($path_milestone_report, $data_graph);
+///*
+// *
+// * genera el listado de objetivos
+// *
+// * */
+//
+//
+//
+////$data_graph=sql_get_goals_json($courseid);
+//
+//$report_type = "reporteObjetivos";
+///*ruta total del reporte*/
+//$path_goals_report = $dir . "/" . $report_type.'_'.$ending;
+//
+///*guarda el reporte en el archivo*/
+////file_put_contents($path_goals_report, $data_graph);
+//;
+////print_object($data_graph);
+//
+////echo 'students';
+////print_object(sql_course_students_json(7, 9));
+//
+////$data_graph=sql_get_student_tests_json();
+////echo 'student tests';
+////print_object($data_graph);
+//
+////$data_graph=json_encode(sql_get_student_average($student_id));
+//
+//$report_type = "reportePuntosHitos";
+///*ruta total del reporte*/
+//$path_student_tests_report = $dir . "/" . $report_type.$ending; //aca le pongo el id del alumno para que no se pise con otra cosa
+////$path_student_average_report = $dir . "/" . 'datosFechaNota2.txt'; //aca le pongo el id del alumno para que no se pise con otra cosa
 
 /*guarda el reporte en el archivo*/
-file_put_contents($path_milestone_report, $data_graph);
-/*
- *
- * genera el listado de objetivos
- *
- * */
-
-
-
-$data_graph=sql_get_goals_json($courseid);
-
-$report_type = "reporteObjetivos";
-/*ruta total del reporte*/
-$path_goals_report = $dir . "/" . $report_type.'_'.$ending;
-
-/*guarda el reporte en el archivo*/
-file_put_contents($path_goals_report, $data_graph);
-;
-//print_object($data_graph);
-
-echo 'students';
-print_object(sql_course_students_json(7, 9));
-
-$data_graph=sql_get_student_tests_json();
-echo 'student tests';
-print_object($data_graph);
-
-//$data_graph=json_encode(sql_get_student_average($student_id));
-
-$report_type = "reportePuntosHitos";
-/*ruta total del reporte*/
-$path_student_tests_report = $dir . "/" . $report_type.$ending; //aca le pongo el id del alumno para que no se pise con otra cosa
-//$path_student_average_report = $dir . "/" . 'datosFechaNota2.txt'; //aca le pongo el id del alumno para que no se pise con otra cosa
-
-/*guarda el reporte en el archivo*/
-file_put_contents($path_student_tests_report, $data_graph);
+//file_put_contents($path_student_tests_report, $data_graph);
 
 
 
 //habilitar con el reporte de alumnos
-$graph_functions .= $report_type;
+//$graph_functions .= $report_type;
 
 ////se puede borrar
 //echo "promedio de alumnos";
@@ -156,28 +228,31 @@ $graph_functions .= $report_type;
  * genera el reporte de barras divididas
  *
  * */
-$data_graph=sql_categories_report_json();
+//$data_graph=sql_categories_report_json();
 //print_object($data_graph);
-$data_graph=sql_categories_report_json();
+//$data_graph=sql_categories_report_json();
 //print_object($data_graph);
 
 
-$report_type = "reporteBarrasDivididas";
+//$report_type = "reporteBarrasDivididas";
 /*ruta total del reporte*/
-$path_div_bar_report = $dir . "/" . $report_type.'_'.$ending;
+//$path_div_bar_report = $dir . "/" . $report_type.'_'.$ending;
 
 /*guarda el reporte en el archivo*/
-file_put_contents($path_div_bar_report, $data_graph);
+//file_put_contents($path_div_bar_report, $data_graph);
 
 echo html_writer::start_div('', array('id' => 'container_div_bar_graph'));
 echo html_writer::end_div();
-$graph_functions .= ','.$report_type;
+//$graph_functions .= ','.$report_type;
 
 
 
 
 echo html_writer::end_div();
 
+
+echo html_writer::start_div('', array('id' => 'container_div_bar_graph'));
+echo html_writer::end_div();
 
 
 /*
@@ -190,14 +265,14 @@ $report_type = "reporteCircular";
 /*ruta total del reporte*/
 $path_pie_report = $dir . "/" . $report_type.'_'.$ending;
 //$data_graph=json_encode(sql_grafica_circular());
-$data_graph=json_encode(sql_grafica_circular());
+//$data_graph=json_encode(sql_grafica_circular());
 
 //print_object(sql_grafica_circular());
 /*guarda el reporte en el archivo*/
-file_put_contents($path_pie_report, $data_graph);
+//file_put_contents($path_pie_report, $data_graph);
 
 
-$graph_functions .= ','.$report_type;
+//$graph_functions .= ','.$report_type;
 echo html_writer::start_div('', array('id' => 'container_pie_graph'));
 echo html_writer::end_div();
 
@@ -209,7 +284,7 @@ echo html_writer::end_div();
  * genera el reporte de barras
  *
  * */
-$data_graph=json_encode(sql_grafica_barras());
+//$data_graph=json_encode(sql_grafica_barras());
 
 
 $report_type = "reporteBarras";
@@ -217,7 +292,7 @@ $report_type = "reporteBarras";
 $path_bar_report = $dir . "/" . $report_type.'_'.$ending;
 
 /*guarda el reporte en el archivo*/
-file_put_contents($path_bar_report, $data_graph);
+//file_put_contents($path_bar_report, $data_graph);
 
 echo html_writer::start_div('', array('id' => 'container_bar_graph'));
 echo html_writer::end_div();

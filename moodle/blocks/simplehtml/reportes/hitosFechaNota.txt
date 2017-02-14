@@ -1,0 +1,20 @@
+[
+	{
+		"hitoid":1,
+		"hitonombre":"Inicio",
+		"hitofecha":"2016-03-30",
+		"hitodescripcion":"Inicio del curso"
+	},
+     	{
+     		"hitoid":2,
+     		"hitonombre":"Simulacro",
+     		"hitofecha":"2016-09-01",
+     		"hitodescripcion":"Simulacro profesores"
+     	},
+         	{
+         		"hitoid":3,
+         		"hitonombre":"Evaluación",
+         		"hitofecha":"2016-11-01",
+         		"hitodescripcion":"Prueba con alumnos"
+         	}
+]
