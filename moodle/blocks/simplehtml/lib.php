@@ -475,15 +475,17 @@ function sql_get_student_average($student_id){
     return array_values($resultados);
 
 }
- function sql_get_student_tests($student_id = null, $course_id = null){
+
+function sql_get_student_tests2(){
+
+    global $DB;
+
+
+}
+
+ function sql_get_student_tests($student_id = null, $group_id = null, $course_id = null){
 //grafica de puntos
      global $DB;
-//     $sql = "SELECT   u.id as alumnoId, CONCAT(firstname,' ', lastname) AS alumnoNombre, round(qg.grade, 1) AS pruebanota ,
-//round((qg.grade *100/q.grade),1) as porcentaje,
-//    round(q.grade,1) notatotal, q.name as nombreprueba, from_unixtime(q.timeopen) as pruebafecha, q.id as idquiz
-//    FROM ((mdl_user u RIGHT JOIN mdl_quiz_grades qg ON u.id=qg.userid)
-//    LEFT JOIN mdl_quiz q ON q.id=qg.quiz)
-//    LEFT JOIN mdl_course c ON c.id=q.course";
 
      $sql = "SELECT   u.id as alumnoid, 
         CONCAT(firstname,' ', lastname) AS alumnonombre,IFNULL(round(qg.grade, 1),0) AS pruebanotaoriginal,
@@ -506,20 +508,29 @@ function sql_get_student_average($student_id){
 //    WHERE u.id = $student_id  and c.id = 3"; //agregar el grupo
 //     WHERE c.id =3 and roleid=5 and q.id IN (Select quiz FROM mdl_quiz_grades) order by CONCAT(firstname,' ', lastname)";
 
-     $sql2 = "select * from mdl_impulsoweb_student_tests  where groupid = 9";
+     $sql2 = "select * from mdl_impulsoweb_student_tests  where 1=1 ";
 
 
 
     $params = array();
 
-//     if (!is_null($course_id ) {
-//        $params = array('u.id', $student_id);
-//     }
+     if (!is_null($course_id )) {
+         echo 'hay curso <br>';
+//         $params = array('alumnoid', $student_id); // esto no funca, ver por qué
+     }
 //     if (!is_null($student_id)){
 //         $params = array_merge($params, array('c.id', $course_id));
 //     }
+     if (!is_null($group_id)){
+         echo 'hay grupo '.$group_id.' <br>';
+//         $params = array_merge($params, array('groupid', $group_id)); // esto no funca, ver por qué
+         $sql2 = $sql2." and groupid = ". $group_id.
 
-    $resultados = $DB->get_records_sql($sql2, $params, 0, $userlimit=0);
+         var_dump($sql2);
+     }
+
+
+     $resultados = $DB->get_records_sql($sql2, $params, 0, $userlimit=0);
 
 
     return $resultados;
@@ -527,8 +538,8 @@ function sql_get_student_average($student_id){
 }
 
 
-function sql_get_student_tests_json($student_id = null, $course_id = null){
-    return json_encode(array_values(sql_get_student_tests()));
+function sql_get_student_tests_json($student_id = null, $group_id = null, $course_id = null){
+    return json_encode(array_values(sql_get_student_tests($student_id, $group_id, $course_id)));
 }
 
 function sql_get_goals($course_id=null){

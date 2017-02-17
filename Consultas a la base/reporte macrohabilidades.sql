@@ -28,3 +28,14 @@ LEFT JOIN mdl_question_categories qc ON ques.category = qc.id
 order by groupid, mhid,notaletra
 
 ;
+
+
+
+
+
+SELECT * FROM quatros1_moodle_20161125.mdl_impulsoweb_categories_report;
+
+select distinct alumnonombre, alumnoid, groupid
+from quatros1_moodle_20161125.mdl_impulsoweb_categories_report
+order by groupid,alumnonombre
+;

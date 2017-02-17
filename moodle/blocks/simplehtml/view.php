@@ -74,7 +74,7 @@ $ending = 'curso_'.$courseid.'_'.$today.$output_file_type;
 
 
 
-////inicio del acordion de graficas
+////inicio del acordeon de graficas
 //echo html_writer::start_div('', array('id' => 'container_graficos'));
 //echo html_writer::end_div();
 
@@ -197,9 +197,9 @@ $ending = 'curso_'.$courseid.'_'.$today.$output_file_type;
 ////echo 'students';
 ////print_object(sql_course_students_json(7, 9));
 //
-////$data_graph=sql_get_student_tests_json();
-////echo 'student tests';
-////print_object($data_graph);
+$data_graph=sql_get_student_tests_json(null, 9, null);
+echo 'student tests';
+print_object($data_graph);
 //
 ////$data_graph=json_encode(sql_get_student_average($student_id));
 //
